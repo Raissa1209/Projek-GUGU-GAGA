@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>GUGUGAGA.STORE</title>
+<style>
+body {
+  font-family: Arial;
+  margin: 0;
+  background: linear-gradient(#ffffff, #b3cde0, #2b5c92,#0c1446);
+  color: rgb(229, 237, 255);
+}
+ 
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* NAVBAR */
+.navbar {
+  background: rgba(37, 67, 143, 0.685);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+.navbar {
+  background: rgba(43, 70, 137, 0.685);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000; 
+}
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.navbar h1 { margin:0; font-size:20px; }
+.navbar button {
+  padding: 8px 15px;
+  border:none;
+  border-radius:8px;
+  background: rgba(181, 205, 245, 0.783);
+  color:rgb(35, 72, 121);
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* CONTAINER */
+.container {
+  width: 1200px;  
+  max-width: 95%;
+  margin: auto;
+}
+
+/* CARD */
+.card {
+  background: rgba(20, 56, 135, 0.58);
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 20px; 
+  overflow: hidden;   
+}
+
+.card {
+  transition: all 0.5s ease;
+}
+/* SLIDER */
+.slider {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+.slider {
+  border-radius: 20px;
+  overflow: hidden;
+}
+.slides img {
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 20px; 
+}
+.slider {
+  width: 100%;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  transition: transform 1s ease;
+}
+
+.slides img {
+  width: 100%;
+  flex-shrink: 0; 
+}
+
+/* =======================
+   POPULAR GAME SECTION
+======================= */
+.popular-section{
+  background: transparent;
+  padding: 10px 0;
+}
+
+.popular-section h2{
+  font-size: 34px;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.popular-section p{
+  margin-bottom: 20px;
+  color: #d8e6ff;
+}
+
+.popular-grid{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 18px;
+}
+
+.popular-item{
+  background: linear-gradient(135deg,#469cff,#b8c0f0);
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.popular-item:hover{
+  transform: translateY(-5px) scale(1.02);
+}
+
+.popular-item img{
+  width: 95px;
+  height: 95px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.popular-info h3{
+  margin: 0;
+  font-size: 30px;
+  color: white;
+}
+
+.popular-info span{
+  color: #f1f1f1;
+  font-size: 18px;
+}
+
+/* HP */
+@media(max-width:900px){
+  .popular-grid{
+    grid-template-columns:1fr;
+  }
+
+  .popular-info h3{
+    font-size:22px;
+  }
+
+  .popular-info span{
+    font-size:15px;
+  }
+}
+
+/* GAME LIST */
+.game-list {
+  display: grid;
+  grid-template-columns: repeat(4, 160px); /* fix lebar item */
+  justify-content: center; /* 🔥 bikin ke tengah */
+  gap: 20px;
+  width: 100%;
+}
+.game-list {
+  padding: 20px 0;
+}
+.game-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 160px));
+  justify-content: center;
+  gap: 20px;
+}
+
+.game {
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+.game-list::-webkit-scrollbar {
+  height: 8px;
+}
+
+.game-list::-webkit-scrollbar-thumb {
+  background: #6ea8ff;
+  border-radius: 10px;
+}
+
+.game {
+  background: none;
+  padding: 0;
+}
+
+.game img {
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.game img:hover {
+  transform: scale(1.05);
+}
+
+.game.active img {
+  outline: 3px solid #fff;
+}
+
+.game {
+  background: rgba(255,255,255,0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.game:hover{
+  transform: translateY(-5px);
+}
+
+.game img{
+  width: 100%;
+  aspect-ratio: 1/1;   /* biar kotak perfect */
+  object-fit: cover;   /* isi penuh, gak gepeng */
+  border-radius: 12px;
+}
+
+.game {
+  width: 100%;
+}
+
+.game img {
+  width: 100%;
+  height: 180px; /* 🔥 bikin lebih gede */
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.game{
+  width: 100%;
+  max-width: 160px;  /* bisa ubah: 140 - 180 sesuai selera */
+  margin: auto;
+}
+
+.game-info{
+  padding:10px;
+}
+
+.game-info h3{
+  margin:0;
+  font-size:18px;
+  color:white;
+}
+
+.game-info span{
+  color:#ddd;
+  font-size:14px;
+}
+.game {
+  position: relative;
+}
+
+.game-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+.game.active { background: rgb(49, 75, 121); color:black; }
+
+.game-logo { width:50px; display:block; margin:auto; margin-bottom:5px; }
+
+/* INPUT */
+input, select {
+  width:100%;
+  padding:10px;
+  margin-top:5px;
+  border-radius:5px;
+  border:none;
+}
+
+/* GRID DIAMOND */
+.grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+
+.nominal {
+  background: white;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 10px;
+}
+
+.nominal:hover {
+  transform: scale(1.05);
+  background: #cfe3ff;
+}
+
+.nominal.active {
+  border: 2px solid #4a6cff;
+  background: #dbe8ff;
+}
+.nominal.active {
+  box-shadow: 0 0 10px #6ea8ff;
+}
+
+/* 🔥 BOX DALAM */
+.item-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ATAS (ICON + NAMA) */
+.item-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+}
+
+.item-top img {
+  width: 25px;
+  height: 25px;
+}
+
+/* HARGA */
+.item-price {
+  font-size: 13px;
+  color: #333;
+  background: #f1f1f1;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.nominal {
+  background: white;
+  color: black;
+  padding:10px;
+  text-align:center;
+  border-radius:5px;
+  cursor:pointer;
+  transition: all 0.3s ease;
+}
+
+.nominal {
+  background: #f1f5ff;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.nominal:hover { background: rgb(171, 201, 255); transform:scale(1.05); }
+.nominal.active { background: rgb(142, 171, 227); color:black; }
+
+/* CART */
+#cart { background: rgba(152, 149, 149, 0.2); padding:10px; border-radius:5px; white-space: pre-line; }
+
+/* MODAL LOGIN/REGISTER & CHECKOUT */
+.modal-bg {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.6);
+  display:none;
+  justify-content:center;
+
+  align-items: flex-start;  
+  padding-top: 40px;        
+  z-index:10;
+}
+
+.modal {
+  background: rgba(255,255,255,0.1);
+  padding:20px;
+  border-radius:10px;
+  width:300px;
+  max-width:90%;
+  color:white;
+
+  max-height: 90vh;   
+  overflow-y: auto;  
+}
+
+button { cursor:pointer; margin-top:5px; }
+
+#qrisBox {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+  animation: fadeIn 0.3s ease;
+}
+
+#qrisBox img {
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin: 10px auto;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+#qrisBox {
+  display: none;
+  text-align: center;
+  margin-top: 15px;
+  background: rgba(0,0,0,0.5);
+}
+#bankBox input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 5px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* RESPONSIVE */
+@media(max-width:500px){
+  .container { width:95%; }
+  .grid { grid-template-columns:1fr; }
+}
+
+/* NOTIFICATION */
+#notif {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgb(171, 201, 255);
+  color: black;
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: none;
+  z-index: 20;
+}
+</style>
+</head>
+<body>
+
+<!-- TAMBAHAN DI NAVBAR -->
+<div class="navbar">
+  <div class="logo-area">
+    <img src="/LOGO.GG.png" class="logo">
+    <h1>GUGUGAGA.STORE</h1>
+  </div>
+
+  <div id="userArea">
+    <button onclick="openModal('login')">Login</button>
+    <button onclick="openModal('register')">Register</button>
+  </div>
+</div>
+
+<div class="container">
+<div class="slider">
+<div class="card">
+  <h2>Top Up Game Murah & Cepat </h2>
+  <p>Proses instan, aman, dan terpercaya. Banyak pilihan game populer!</p>
+</div>
+  <div class="slides" id="slides">
+    <img src="/slide1.png">
+    <img src="/slide2.png">
+    <img src="/slide3.png">
+  </div>
+</div>
+<!-- TEMPATKAN DI BAWAH SLIDER / SETELAH </div> slider -->
+
+<div class="card popular-section">
+  <h2>🔥 POPULER</h2>
+  <p>Berikut adalah beberapa produk yang paling populer saat ini.</p>
+
+  <div class="popular-grid">
+
+    <div class="popular-item" onclick="selectGame('Mobile Legends', this)">
+      <img src="/ml.png">
+      <div class="popular-info">
+        <h3>Mobile Legends</h3>
+        <span>Moonton</span>
+      </div>
+    </div>
+
+    <div class="popular-item" onclick="selectGame('Free Fire', this)">
+      <img src="/ff.webp">
+      <div class="popular-info">
+        <h3>Free Fire</h3>
+        <span>Garena</span>
+      </div>
+    </div>
+
+    <div class="popular-item" onclick="selectGame('Roblox', this)">
+      <img src="/roblox.jpg">
+      <div class="popular-info">
+        <h3>Roblox</h3>
+        <span>Roblox Corp</span>
+      </div>
+    </div>
+
+    <div class="popular-item" onclick="selectGame('MCGG', this)">
+      <img src="/mcgg.jpg">
+      <div class="popular-info">
+        <h3>MCGG</h3>
+        <span>Moonton</span>
+      </div>
+    </div>
+
+    <div class="popular-item" onclick="selectGame('PUBG', this)">
+      <img src="/pugb.jpg">
+      <div class="popular-info">
+        <h3>PUBG Mobile</h3>
+        <span>Tencent Games</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <!-- GAME SELECTION -->
+  <div class="card">
+    <h2>Pilih Game</h2>
+   <div class="game-list">
+
+  <div class="game" onclick="selectGame('Free Fire', this)">
+    <img src="/ff.webp">
+    <div class="game-info">
+      <h3>Free Fire</h3>
+      <span>Garena</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('Mobile Legends', this)">
+    <img src="/ml.png">
+    <div class="game-info">
+      <h3>Mobile Legends</h3>
+      <span>Moonton</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('PUBG', this)">
+    <img src="/pugb.jpg">
+    <div class="game-info">
+      <h3>PUBG Mobile</h3>
+      <span>Tencent</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('Genshin Impact', this)">
+    <img src="/genshin.jpg">
+    <div class="game-info">
+      <h3>Genshin Impact</h3>
+      <span>HoYoverse</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('Roblox', this)">
+    <img src="/roblox.jpg">
+    <div class="game-info">
+      <h3>Roblox</h3>
+      <span>Roblox Corp</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('Valorant', this)">
+    <img src="/valorant.png">
+    <div class="game-info">
+      <h3>Valorant</h3>
+      <span>Riot Games</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('Honkai Impact', this)">
+    <img src="/honkay.jpg">
+    <div class="game-info">
+      <h3>Honkai Impact</h3>
+      <span>HoYoverse</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('ZEPETO', this)">
+    <img src="/zepeto.jpg">
+    <div class="game-info">
+      <h3>ZEPETO</h3>
+      <span>Naver Z</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('EA Sports', this)">
+    <img src="/EA.jpg">
+    <div class="game-info">
+      <h3>EA Sports</h3>
+      <span>Electronic Arts</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('Blood Strike', this)">
+    <img src="/blood strike.jpg">
+    <div class="game-info">
+      <h3>Blood Strike</h3>
+      <span>NetEase</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('MCGG', this)">
+    <img src="/mcgg.jpg">
+    <div class="game-info">
+      <h3>MCGG</h3>
+      <span>Moonton</span>
+    </div>
+  </div>
+
+  <div class="game" onclick="selectGame('HOK', this)">
+    <img src="/hok.webp">
+    <div class="game-info">
+      <h3>Honor of Kings</h3>
+      <span>Tencent</span>
+    </div>
+  </div>
+
+</div>
+  <!-- tambahin game lain bebas -->
+</div>
+
+  <!-- USER ID -->
+<!-- RIWAYAT PINDAH KE ATAS -->
+<div class="card" id="historySection">
+  <h2>Riwayat Transaksi</h2>
+  <pre id="historyList">Belum ada transaksi</pre>
+</div>
+
+<!-- USER ID -->
+<div class="card" id="userSection" style="display:none;">
+  <h2>Masukkan Data Akun</h2>
+
+  <label id="idLabel">ID</label>
+  <input type="text" id="userId" placeholder="Masukkan ID">
+
+  <!-- SERVER / ZONE -->
+  <div id="serverInput" style="display:none;">
+    <label id="serverLabel">Server</label>
+    <input type="text" id="server" placeholder="Masukkan Server">
+  </div>
+</div>
+
+<!-- DIAMOND -->
+<div class="card" id="diamondSection" style="display:none;">
+ <h2 id="diamondTitle">Pilih Item</h2>
+ <!-- JUMLAH -->
+<div class="card" id="jumlahSection" style="display:none;">
+  <h2>Masukkan jumlah total</h2>
+
+  <label>Jumlah</label>
+  <div style="display:flex; gap:10px; align-items:center;">
+    <input type="number" id="jumlah" value="1" min="1">
+
+    <button onclick="tambahJumlah()">+</button>
+    <button onclick="kurangJumlah()">-</button>
+  </div>
+</div>
+  <div class="grid" id="nominalList"></div>
+</div>
+
+<!-- CART -->
+<div class="card" id="cartSection" style="display:none;">
+  <h2>Keranjang</h2>
+  <p id="cart">Belum ada item</p>
+</div>
+<div class="card">
+  <h2>Transaksi</h2>
+  <pre id="transaction">Belum ada transaksi</pre>
+</div>
+
+<button onclick="addToCart()" id="cartBtn" style="display:none;">Masukkan Keranjang</button>
+<button onclick="openCheckoutModal()" id="checkoutBtn" style="display:none;">Checkout</button>
+
+<!-- MODAL LOGIN/REGISTER/CHECKOUT -->
+<div id="modalBg" class="modal-bg">
+  <!-- LOGIN -->
+  <div class="modal" id="loginModal">
+    <h2>Login</h2>
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p>Belum punya akun? <a href="#" onclick="showRegisterModal()">Daftar</a></p>
+  </div>
+  <!-- REGISTER -->
+  <div class="modal" id="registerModal" style="display:none;">
+    <h2>Registrasi</h2>
+    <input type="text" id="regUser" placeholder="Username">
+    <input type="password" id="regPass" placeholder="Password">
+    <button onclick="register()">Daftar</button>
+    <p>Sudah punya akun? <a href="#" onclick="showLoginModal()">Login</a></p>
+  </div>
+
+<!-- CHECKOUT -->
+<div class="modal" id="checkoutModal" style="display:none;">
+  <h2>Checkout</h2>
+
+  <div id="checkoutList"></div>
+  <p>Total: <span id="checkoutTotal"></span></p>
+
+  <h3>Pilih Metode Pembayaran</h3>
+  <select id="paymentMethod" onchange="changePayment()">
+    <option value="">-- Pilih Pembayaran --</option>
+    <option value="E-Wallet">E-Wallet</option>
+    <option value="Bank">Bank</option>
+  </select>
+
+  <button onclick="checkoutConfirm()">Selesai</button>
+  <button onclick="closeModal()">Batal</button>
+
+  <!-- INPUT REKENING -->
+ <div id="bankBox" style="display:none; margin-top:10px;">
+  
+  <select id="bankSelect" onchange="showRekening()">
+    <option value="">-- Pilih Bank --</option>
+    <option value="BRI">BRI</option>
+    <option value="BCA">BCA</option>
+    <option value="Mandiri">Mandiri</option>
+  </select>
+  <p id="rekeningTujuan" style="margin-top:10px;"></p>
+ <input type="text" id="rekeningUser" placeholder="Masukkan No Rekening Kamu">
+
+<button onclick="confirmBank()" style="width:100%; margin-top:10px;">
+  Selesai Transfer Bank
+</button>
+
+<button onclick="resetApp()" style="width:100%; margin-top:5px; background:rgb(255, 255, 255); color:rgb(21, 21, 21);">
+  Keluar
+</button>
+
+</div>
+
+  <!-- QRIS -->
+<div id="qrisBox" style="display:none; text-align:center; margin-top:15px;">
+  <p>Scan QRIS untuk bayar</p>
+  <img src="/e-wallet.jpeg" style="width:200px;">
+
+  <button onclick="resetApp()" style="margin-top:10px; width:100%; background:rgb(241, 239, 239); color:white;">
+    Keluar
+  </button>
+</div>
+</div>
+
+<script>
+// DATA
+let indexSlide = 0;
+const slides = document.getElementById("slides");
+const totalSlides = slides.children.length;
+
+function autoSlide(){
+  indexSlide++;
+
+  if(indexSlide >= totalSlides){
+    indexSlide = 0;
+  }
+
+  slides.style.transform = `translateX(-${indexSlide * 100}%)`;
+}
+
+setInterval(autoSlide, 5000); // 5 detik
+
+const dataGame = {
+  "Free Fire":[
+    {name:"5 Diamond",price:1000},
+    {name:"30 Diamond",price:5000},
+    {name:"80 Diamond",price:12000},
+    {name:"100 Diamond",price:15000},
+    {name:"130 Diamond",price:17000},
+    {name:"280 Diamond",price:35000},
+    {name:"500 Diamond",price:63000},
+    {name:"720 Diamond",price:96000},
+    {name:"1000 Diamond",price:130000},
+  ],
+
+  "Mobile Legends":[
+    {name:"Weekly Diamond Pass",price:27000},
+    {name:"5 Diamond",price:1000},
+    {name:"10 Diamond",price:2000},
+    {name:"15 Diamond",price:4000},
+    {name:"20 Diamond",price:5000},
+    {name:"36 Diamond",price:10000},
+    {name:"55 Diamond",price:13000},
+    {name:"140 Diamond",price:40000},
+    {name:"176 Diamond",price:51000},
+    {name:"277 Diamond",price:79000},
+    {name:"370 Diamond",price:105000},
+    {name:"554 Diamond",price:158000},
+    {name:"1067 Diamond",price:299000}
+  ],
+
+  "PUBG":[
+    {name:"180 UC",price:45000},
+    {name:"600 UC",price:149000},
+    {name:"1800 UC",price:376000},
+    {name:"3850 UC",price:749000},
+    {name:"6310 UC",price:1235000}
+  ],
+
+   "Genshin Impact":[
+    {name:"60 Crystals",price:14000},
+    {name:"330 Crystals",price:65000},
+    {name:"1090 Crystals",price:158000},
+    {name:"2240 Crystals",price:397000},
+    {name:"3880 Crystals",price:610000},
+    {name:"8080 Crystals",price:1220000}
+  ],
+  
+  "Roblox":[
+  {name:"400 Robux",price:80000},
+  {name:"800 Robux",price:150000},
+  {name:"1800 Robux",price:295000},
+  {name:"4400 Robux",price:725000},
+  {name:"10000 Robux",price:1599000}
+],
+"Valorant":[
+  {name:"475 VP", price:60000},
+  {name:"1000 VP", price:120000},
+  {name:"2050 VP", price:240000},
+  {name:"3650 VP", price:399000},
+  {name:"5350 VP", price:559000},
+  {name:"11000 VP", price:1099000}
+],
+"Honkai Impact":[
+  {name:"Monthly Card", price:75000, type:"monthly"},
+  
+  {name:"65 Crystals", price:15000, type:"crystal"},
+  {name:"330 Crystals", price:75000, type:"crystal"},
+  {name:"660 Crystals", price:150000, type:"crystal"},
+  {name:"1320 Crystals", price:300000, type:"crystal"},
+  
+  {name:"30 B-Chips", price:8000, type:"bchips"},
+  {name:"98 B-Chips", price:25000, type:"bchips"},
+  {name:"330 B-Chips", price:75000, type:"bchips"},
+  {name:"990 B-Chips", price:220000, type:"bchips"},
+  {name:"1320 B-Chips", price:290000, type:"bchips"},
+],
+"ZEPETO":[
+  {name:"4,680 Coin", price:15315, type:"coin"},
+  {name:"9,700 Coin", price:29712, type:"coin"},
+  {name:"25,200 Coin", price:74279, type:"coin"},
+  {name:"40,700 Coin", price:119721, type:"coin"},
+  {name:"110,000 Coin", price:314595, type:"coin"},
+  {name:"300,000 Coin", price:855000, type:"coin"},
+
+  {name:"7 ZEM", price:7658, type:"zem"},
+  {name:"14 ZEM", price:15315, type:"zem"},
+  {name:"28 ZEM", price:29712, type:"zem"},
+  {name:"58 ZEM", price:59423, type:"zem"},
+  {name:"128 ZEM", price:129333, type:"zem"},
+  {name:"323 ZEM", price:327703, type:"zem"},
+  {name:"1000 ZEM", price:974820, type:"zem"},
+
+  {name:"Premium (1 Month)", price:54890, type:"premium"}
+],
+"EA Sports":[
+  {name:"240 Point", price:40000},
+  {name:"520 Point", price:73000},
+  {name:"1070 Point", price:280000},
+  {name:"2200 Point", price:376000},
+  {name:"5750 Point", price:720000},
+  {name:"12000 Point", price:1430000}
+],
+"Blood Strike":[
+  {name:"105 Gold", price:12613},
+  {name:"2260 Gold", price:252252},
+  {name:"320 Gold", price:37838},
+  {name:"540 Gold", price:63000},
+  {name:"1100 Gold", price:126126},
+  {name:"1100 Gold (Promo)", price:252252}
+],
+"MCGG":[
+  {name:"5 Diamond",price:1000},
+  {name:"10 Diamond",price:2000},
+  {name:"50 Diamond",price:12000},
+  {name:"100 Diamond",price:22000},
+  {name:"250 Diamond",price:50000},
+  {name:"500 Diamond",price:95000}
+],
+"HOK":[
+  {name:"80 Tokens",price:16500},
+  {name:"240 Tokens",price:45000},
+  {name:"400 Tokens",price:75000},
+  {name:"560 Tokens",price:104500},
+  {name:"830 Tokens",price:149500},
+  {name:"1245 Tokens",price:224000},
+  {name:"2508 Tokens",price:448500},
+  {name:"4128 Tokens",price:742500},
+  {name:"8360 Tokens",price:1495000}
+],
+};
+
+let selectedItem = null;
+let selectedGame = "Free Fire";
+
+// GAME SELECTION
+function selectGame(game, el){
+  selectedGame = game;
+
+  document.querySelectorAll(".game").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".popular-item").forEach(x=>x.classList.remove("active"));
+
+  if(el){
+    el.classList.add("active");
+  }
+
+  // cari game biasa yg sesuai lalu aktifkan juga
+  document.querySelectorAll(".game").forEach(item=>{
+    if(item.getAttribute("onclick").includes(game)){
+      item.classList.add("active");
+    }
+  });
+
+  document.getElementById("userSection").style.display = "block";
+  document.getElementById("diamondSection").style.display = "block";
+  document.getElementById("cartSection").style.display = "block";
+  document.getElementById("cartBtn").style.display = "inline-block";
+  document.getElementById("checkoutBtn").style.display = "inline-block";
+
+  loadNominal();
+  loadHistory();
+
+  // scroll ke form topup
+  document.getElementById("userSection").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+  const title = document.getElementById("diamondTitle");
+  const idLabel = document.getElementById("idLabel");
+  const serverInput = document.getElementById("serverInput");
+  const serverLabel = document.getElementById("serverLabel");
+
+  // 🔥 RULE PER GAME
+ if(game === "PUBG"){
+  title.innerText = "Pilih UC";
+  idLabel.innerText = "ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverInput.style.display = "none";
+}
+  else if(game === "Genshin Impact"){
+  title.innerText = "Pilih Crystals";
+  idLabel.innerText = "UID";
+  document.getElementById("userId").placeholder = "Masukkan UID";
+  serverLabel.innerText = "Server";
+  serverInput.style.display = "block";
+}
+  else if(game === "Mobile Legends"){
+  title.innerText = "Pilih Diamond";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverLabel.innerText = "Server";
+  serverInput.style.display = "block";
+}
+ else if(game === "Roblox"){
+  title.innerText = "Pilih Robux";
+  idLabel.innerText = "Username";
+  document.getElementById("userId").placeholder = "Masukkan Username";
+  serverInput.style.display = "none";
+ }
+  else if(game === "Valorant"){
+  title.innerText = "Pilih VP";
+  idLabel.innerText = "Riot ID";
+  document.getElementById("userId").placeholder = "Masukkan Riot ID";
+  serverInput.style.display = "none";
+}
+  else if(game === "Honkai Impact"){
+  title.innerText = "Pilih Item";
+  idLabel.innerText = "UID";
+  document.getElementById("userId").placeholder = "Masukkan UID";
+  serverLabel.innerText = "Server";
+  serverInput.style.display = "block";
+}
+else if(game === "ZEPETO"){
+  title.innerText = "Pilih Item";
+  idLabel.innerText = "Username";
+  document.getElementById("userId").placeholder = "Masukkan Username";
+  serverInput.style.display = "none";
+}
+else if(game === "EA Sports"){
+  title.innerText = "Pilih Point";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverInput.style.display = "none";
+}
+else if(game === "Blood Strike"){
+  title.innerText = "Pilih Gold";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverInput.style.display = "none";
+}
+else if(game === "MCGG"){
+  title.innerText = "Pilih Diamond";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverLabel.innerText = "Server";
+  serverInput.style.display = "block";
+}
+else if(game === "HOK"){
+  title.innerText = "Pilih Token";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverInput.style.display = "none";
+}
+  else {
+  title.innerText = "Pilih Diamond";
+  idLabel.innerText = "ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverInput.style.display = "none";
+}
+  // tampilkan section
+  document.getElementById("userSection").style.display = "block";
+  document.getElementById("diamondSection").style.display = "block";
+  document.getElementById("cartSection").style.display = "block";
+  document.getElementById("cartBtn").style.display = "inline-block";
+  document.getElementById("checkoutBtn").style.display = "inline-block";
+
+  loadNominal();
+  
+  loadHistory();
+
+function loadNominal(){
+  const list = document.getElementById("nominalList");
+  list.innerHTML = "";
+
+  dataGame[selectedGame].forEach(item=>{
+    const div = document.createElement("div");
+    div.classList.add("nominal");
+
+    let img = "";
+
+    // 🔥 ICON PER GAME / ITEM
+    if(selectedGame === "Free Fire" || selectedGame === "Mobile Legends" || selectedGame === "MCGG"){
+      img = `<img src="/ff.dm.png">`;
+    }
+    else if(selectedGame === "PUBG"){
+      img = `<img src="/uc.pubg.png">`;
+    }
+    else if(selectedGame === "Genshin Impact"){
+      img = `<img src="/crystal.png">`;
+    }
+    else if(selectedGame === "Roblox"){
+      img = `<img src="/robux.png">`;
+    }
+    else if(selectedGame === "Valorant"){
+      img = `<img src="/vp.png">`;
+    }
+    else if(selectedGame === "Honkai Impact"){
+      img = `<img src="/honkai.png">`;
+    }
+    else if(selectedGame === "ZEPETO"){
+      if(item.type === "coin") img = `<img src="/coin.png">`;
+      else if(item.type === "zem") img = `<img src="image/zem 1.png">`;
+      else if(item.type === "premium") img = `<img src="/premium.png">`;
+    }
+    else if(selectedGame === "EA Sports"){
+      img = `<img src="images/fc.png">`;
+    }
+    else if(selectedGame === "Blood Strike"){
+      img = `<img src="/gold.png">`;
+    }
+   else if(selectedGame === "HOK"){
+      img = `<img src="/tokens.png">`;
+    }
+
+    div.innerHTML = `
+      <div class="item-box">
+        <div class="item-top">
+          ${img}
+          <span>${item.name}</span>
+        </div>
+        <div class="item-price">Rp ${item.price}</div>
+      </div>
+    `;
+
+    div.onclick = ()=>{
+      document.querySelectorAll(".nominal").forEach(n=>n.classList.remove("active"));
+      div.classList.add("active");
+
+      selectedItem = item;
+
+      document.getElementById("jumlahSection").style.display = "block";
+
+      jumlah = 1;
+      document.getElementById("jumlah").value = 1;
+    };
+
+    list.appendChild(div);
+  });
+}
+let jumlah = 1;
+
+function tambahJumlah(){
+  jumlah++;
+  document.getElementById("jumlah").value = jumlah;
+}
+
+function kurangJumlah(){
+  if(jumlah > 1){
+    jumlah--;
+    document.getElementById("jumlah").value = jumlah;
+  }
+}
+
+// CART
+function addToCart() {
+  const userId = document.getElementById("userId").value;
+  if(!userId){
+    alert("Masukkan User ID!");
+    return;
+  }
+  const userData = JSON.parse(localStorage.getItem("user"));
+  if(!userData){ alert("Login dulu!"); return; }
+  if(!selectedItem){ alert("Pilih diamond dulu!"); return; }
+
+  let cart = JSON.parse(localStorage.getItem("cartList")) || [];
+  const qty = parseInt(document.getElementById("jumlah").value);
+const totalPrice = selectedItem.price * qty;
+
+cart.push({
+  userId,
+  game: selectedGame,
+  item: selectedItem.name + " x" + qty,
+  price: totalPrice
+});
+  localStorage.setItem("cartList",JSON.stringify(cart));
+  updateCartDisplay();
+  showNotification("Item berhasil ditambahkan ke keranjang");
+}
+
+// UPDATE CART DISPLAY
+function updateCartDisplay() {
+  const cart = JSON.parse(localStorage.getItem("cartList")) || [];
+  const cartContainer = document.getElementById("cart");
+  if(cart.length===0){ cartContainer.innerText="Belum ada item"; return;}
+  let html="";
+  let total=0;
+  cart.forEach((c,i)=>{
+    html+=`${i+1}. [${c.game}] ${c.item} - Rp${c.price}  <a href="#" onclick="removeItem(${i})">[Hapus]</a>\n`;
+    total+=c.price;
+  });
+  html+=`\nTotal: Rp${total}`;
+  cartContainer.innerHTML = html;
+}
+
+// REMOVE ITEM
+function removeItem(index){
+  let cart = JSON.parse(localStorage.getItem("cartList")) || [];
+  cart.splice(index,1);
+  localStorage.setItem("cartList",JSON.stringify(cart));
+  updateCartDisplay();
+}
+
+// MODAL
+function openModal(type){ document.getElementById("modalBg").style.display="flex";
+  if(type==="login"){showLoginModal();}
+  else{showRegisterModal();}
+}
+function showLoginModal(){ document.getElementById("loginModal").style.display="block";
+  document.getElementById("registerModal").style.display="none";
+  document.getElementById("checkoutModal").style.display="none"; }
+function showRegisterModal(){ document.getElementById("loginModal").style.display="none";
+  document.getElementById("registerModal").style.display="block";
+  document.getElementById("checkoutModal").style.display="none"; }
+function closeModal(){ document.getElementById("modalBg").style.display="none"; }
+
+// LOGIN / REGISTER
+function register(){
+  const user=document.getElementById("regUser").value;
+  const pass=document.getElementById("regPass").value;
+  if(!user||!pass){alert("Isi semua!"); return;}
+  localStorage.setItem("user",JSON.stringify({user,pass}));
+  alert("Registrasi berhasil!");
+  showLoginModal();
+}
+
+function login(){
+  const user = document.getElementById("loginUser").value;
+  const pass = document.getElementById("loginPass").value;
+  const data = JSON.parse(localStorage.getItem("user"));
+
+  if(data && user === data.user && pass === data.pass){
+    alert("Login berhasil!");
+    
+    // ✅ tampilkan user di navbar
+    document.getElementById("userArea").innerHTML = `<b>${user}</b>`;
+    
+    closeModal();
+  } else {
+    alert("Login gagal!");
+  }
+}
+
+// CHECKOUT MODAL
+function openCheckoutModal(){
+  const cart = JSON.parse(localStorage.getItem("cartList")) || [];
+  if(cart.length===0){alert("Keranjang kosong!"); return;}
+  const listDiv=document.getElementById("checkoutList");
+  let html="";
+  let total=0;
+  cart.forEach(c=>{
+    html+=`[${c.game}] ${c.item} - Rp${c.price}\n`;
+    total+=c.price;
+  });
+  listDiv.innerText=html;
+  document.getElementById("checkoutTotal").innerText="Rp"+total;
+  document.getElementById("loginModal").style.display="none";
+  document.getElementById("registerModal").style.display="none";
+  document.getElementById("checkoutModal").style.display="block";
+  document.getElementById("modalBg").style.display="flex";
+}
+function changePayment(){
+  const method = document.getElementById("paymentMethod").value;
+
+  document.getElementById("bankBox").style.display = "none";
+  document.getElementById("qrisBox").style.display = "none";
+
+  if(method === "Bank"){
+    document.getElementById("bankBox").style.display = "block";
+  }
+}
+  // ✅ VALIDASI REKENING
+
+ function checkoutConfirm(){
+  const method = document.getElementById("paymentMethod").value;
+  const cart = JSON.parse(localStorage.getItem("cartList")) || [];
+
+  if(method === "Bank"){
+    const bank = document.getElementById("bankSelect").value;
+    const rekUser = document.getElementById("rekeningUser").value;
+
+    if(!bank){
+      alert("Pilih bank terlebih dahulu!");
+      return;
+    }
+
+    if(!rekUser){
+      alert("Masukkan nomor rekening kamu!");
+      return;
+    }
+  }
+
+  createTransaction(cart, method);
+
+  const total = cart.reduce((a,b)=>a+b.price,0);
+
+  if(method === "E-Wallet"){
+    document.getElementById("qrisBox").style.display = "block";
+    generateQR(total);
+  } else {
+    alert("Silakan transfer ke rekening tujuan");
+    closeModal();
+  }
+
+  showNotification("Silakan lakukan pembayaran");
+}
+
+  createTransaction(cart, method);
+
+  const total = cart.reduce((a,b)=>a+b.price,0);
+
+  if(method === "E-Wallet"){
+    document.getElementById("qrisBox").style.display = "block";
+    generateQR(total);
+  } else {
+    alert("Silakan transfer ke rekening tujuan");
+    closeModal();
+  }
+
+  showNotification("Silakan lakukan pembayaran");
+
+// ✅ BENAR (di luar function lain)
+function confirmBank(){
+  const bank = document.getElementById("bankSelect").value;
+  const rekUser = document.getElementById("rekeningUser").value;
+
+  if(!bank){
+    alert("Pilih bank dulu!");
+    return;
+  }
+
+  if(!rekUser){
+    alert("Masukkan nomor rekening kamu!");
+    return;
+  }
+
+  // 🔥 jalankan dulu proses
+  payNow();
+
+  // baru kasih notif
+  alert("Transfer berhasil dikonfirmasi!");
+}
+function showRekening(){
+  const bank = document.getElementById("bankSelect").value;
+  const rekText = document.getElementById("rekeningTujuan");
+
+  if(bank === "BRI"){
+    rekText.innerText = "No Rekening BRI: 123456789 a.n TopUp Game";
+  } 
+  else if(bank === "BCA"){
+    rekText.innerText = "No Rekening BCA: 0987654321 a.n TopUp Game";
+  } 
+  else if(bank === "Mandiri"){
+    rekText.innerText = "No Rekening Mandiri: 120920291 a.n TopUp Game";
+  } 
+  else {
+    rekText.innerText = "";
+  }
+}
+
+// TAMPILKAN QRIS SETELAH KLIK BAYAR
+const qrisBox = document.getElementById("qrisBox");
+
+function generateQR(total){
+  const qr = document.querySelector("#qrisBox img");
+  qr.src = "/e-wallet.jpeg";
+}
+
+
+// BUAT TRANSAKSI
+function createTransaction(cart, method){
+  const transaction = {
+    id: "TRX" + Date.now(),
+    items: cart,
+    total: cart.reduce((a,b)=>a+b.price,0),
+    method: method,
+    status: "Pending"
+  };
+
+  localStorage.setItem("transaction", JSON.stringify(transaction));
+  showTransaction();
+  
+}
+
+// TAMPILKAN TRANSAKSI
+function showTransaction(){
+  const trx = JSON.parse(localStorage.getItem("transaction"));
+  const el = document.getElementById("transaction");
+
+  if(!trx){
+    el.innerText = "Belum ada transaksi";
+    return;
+  }
+
+  let text = `ID: ${trx.id}\nStatus: ${trx.status}\n\n`;
+  trx.items.forEach(item=>{
+    text += `${item.game} ${item.item} - Rp${item.price}\n`;
+  });
+  text += `\nTotal: Rp${trx.total}\nMetode: ${trx.method}\n`;
+
+  if(trx.status === "Pending"){
+  text += "\nKlik bayar setelah transfer\n";
+  text += `<button onclick="payNow()">Saya Sudah Bayar</button>`;
+} else if(trx.status === "Success"){
+  text += `\n\n<button onclick="resetApp()">Keluar</button>`;
+}
+
+  el.innerHTML = text;
+}
+
+
+// BAYAR
+function payNow(){
+  let trx = JSON.parse(localStorage.getItem("transaction"));
+
+  trx.status = "Success";
+
+  // ✅ SIMPAN KE RIWAYAT
+  saveHistory(trx.items);
+
+  localStorage.setItem("transaction", JSON.stringify(trx));
+  localStorage.removeItem("cartList");
+
+  updateCartDisplay();
+  showTransaction();
+
+  showNotification("Pembayaran berhasil!");
+
+
+  // RESET UI
+  document.getElementById("qrisBox").style.display = "none";
+  closeModal();
+  document.getElementById("userId").value = "";
+  selectedItem = null;
+}
+function resetApp(){
+  localStorage.removeItem("transaction");
+  localStorage.removeItem("cartList");
+
+  document.getElementById("transaction").innerText = "Belum ada transaksi";
+  document.getElementById("cart").innerText = "Belum ada item";
+  document.getElementById("userId").value = "";
+
+  selectedItem = null;
+
+  document.getElementById("qrisBox").style.display = "none";
+
+  location.reload();
+}
+
+  // SIMPAN KE RIWAYAT
+ function saveHistory(items){
+  let history = JSON.parse(localStorage.getItem("history")) || [];
+  history.push(...items);
+  localStorage.setItem("history", JSON.stringify(history));
+}
+
+showTransaction();
+function loadHistory(){
+  const history = JSON.parse(localStorage.getItem("history")) || [];
+  const el = document.getElementById("historyList");
+
+  if(history.length === 0){
+    el.innerText = "Belum ada transaksi";
+    return;
+  }
+
+  let text = "";
+
+  // 🔥 FILTER SESUAI GAME YANG DIPILIH
+  const filtered = history.filter(item => item.game === selectedGame);
+
+  if(filtered.length === 0){
+    el.innerText = "Belum ada transaksi untuk game ini";
+    return;
+  }
+
+  filtered.forEach((item,i)=>{
+    text += `${i+1}. ${item.game} ${item.item} - Rp${item.price}\n`;
+  });
+
+  el.innerText = text;
+}
+
+// NOTIFICATION
+function showNotification(msg){
+  const notif = document.getElementById("notif");
+  notif.innerText=msg;
+  notif.style.display="block";
+  setTimeout(()=>{notif.style.display="none";},2000);
+}
+
+// LOAD DEFAULT
+loadNominal();
+updateCartDisplay();
+</script>
+
+</body>
+</html>

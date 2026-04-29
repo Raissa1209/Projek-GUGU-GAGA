@@ -1,0 +1,22 @@
+let gameDipilih = "";
+
+function pilihGame(namaGame) {
+  gameDipilih = namaGame;
+  document.getElementById("judulGame").innerText = namaGame;
+}
+
+function topUp() {
+  let userId = document.getElementById("userId").value;
+  let server = document.getElementById("server").value;
+  let nominal = document.getElementById("nominal").value;
+  let pembayaran = document.getElementById("pembayaran").value;
+
+  if (!gameDipilih || !userId || !nominal || !pembayaran) {
+    alert("Isi semua data dulu!");
+    return;
+  }
+
+  document.getElementById("hasil").innerText =
+    "Top up berhasil untuk " + gameDipilih +
+    " (User: " + userId + ")";
+}
