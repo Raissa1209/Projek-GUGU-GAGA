@@ -653,6 +653,38 @@ button { cursor:pointer; margin-top:5px; }
     </div>
   </div>
 
+<div class="game" onclick="selectGame('Ace Racer', this)">
+  <img src="/aceracer.jpeg">
+  <div class="game-info">
+    <h3>Ace Racer</h3>
+    <span>NetEase Games</span>
+  </div>
+</div>
+
+<div class="game" onclick="selectGame('Black Clover', this)">
+  <img src="/blackclover.jpeg">
+  <div class="game-info">
+    <h3>Black Clover</h3>
+    <span>Garena / Publisher</span>
+  </div>
+</div>
+
+<div class="game" onclick="selectGame('PUBG New State', this)">
+  <img src="/PUGBNW.jpeg">
+  <div class="game-info">
+    <h3>PUBG New State</h3>
+    <span>Krafton</span>
+  </div>
+</div>
+
+<div class="game" onclick="selectGame('Sausage Man', this)">
+  <img src="/sausage.jpeg">
+  <div class="game-info">
+    <h3>Sausage Man</h3>
+    <span>XD Entertainment</span>
+  </div>
+</div>
+
 </div>
   <!-- tambahin game lain bebas -->
 </div>
@@ -924,6 +956,39 @@ const dataGame = {
   {name:"4128 Tokens",price:742500},
   {name:"8360 Tokens",price:1495000}
 ],
+"Ace Racer":[
+  {name:"270 (250+20 Bonus) Tokens",price:52500},
+  {name:"740 (680+60 Bonus) Tokens",price:130500},
+  {name:"1300 (1180+120 Bonus) Tokens",price:235000},
+  {name:"3180 (2880+300 Bonus) Tokens",price:599000},
+  {name:"6530 (5880+650 Bonus) Tokens",price:1175000}
+],
+"Black Clover":[
+  {name:"86 Black Crystals",price:27000},
+  {name:"225 Black Crystals",price:65650},
+  {name:"470 Black Crystals",price:131100},
+  {name:"980 Black Crystals",price:262200},
+  {name:"1560 Black Crystals",price:393200},
+  {name:"2630 Black Crystals",price:655500},
+  {name:"3750 Black Crystals",price:917500},
+  {name:"5650 Black Crystals",price:1311000}
+],
+"PUBG New State":[
+  {name:"300 NC",price:15422},
+  {name:"1500 + 80 NC",price:77729},
+  {name:"3600 + 250 NC",price:186766},
+  {name:"15000 + 1800 NC",price:778683},
+  {name:"30000 + 5000 NC",price:1557520}
+],
+"Sausage Man":[
+  {name:"186 Candy",price:38000},
+  {name:"318 Candy",price:63500},
+  {name:"686 Candy",price:127500},
+  {name:"1378 Candy",price:255000},
+  {name:"2118 Candy",price:380000},
+  {name:"3548 Candy",price:635000},
+  {name:"7108 Candy",price:1270500}
+],
 };
 
 let selectedItem = null;
@@ -1038,6 +1103,30 @@ else if(game === "HOK"){
   document.getElementById("userId").placeholder = "Masukkan ID";
   serverInput.style.display = "none";
 }
+else if(game === "Ace Racer"){
+  title.innerText = "Pilih Tokens";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverInput.style.display = "none";
+}
+else if(game === "Black Clover"){
+  title.innerText = "Pilih Black Crystals";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverInput.style.display = "none";
+}
+else if(game === "PUBG New State"){
+  title.innerText = "Pilih NC";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan User ID";
+  serverInput.style.display = "none";
+}
+else if(game === "Sausage Man"){
+  title.innerText = "Pilih Candy";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan User ID";
+  serverInput.style.display = "none";
+}
   else {
   title.innerText = "Pilih Diamond";
   idLabel.innerText = "ID";
@@ -1085,10 +1174,20 @@ function loadNominal(){
       img = `<img src="/honkai.png">`;
     }
     else if(selectedGame === "ZEPETO"){
-      if(item.type === "coin") img = `<img src="/coin.png">`;
-      else if(item.type === "zem") img = `<img src="image/zem 1.png">`;
-      else if(item.type === "premium") img = `<img src="/premium.png">`;
-    }
+
+  if(item.name.includes("Coin")){
+    img = `<img src="/koin.png">`;
+  }
+
+  else if(item.name.includes("ZEM")){
+    img = `<img src="/zem.png">`;
+  }
+
+  else if(item.name.includes("Premium")){
+    img = `<img src="/prem1M.jpg">`;
+  }
+
+}
     else if(selectedGame === "EA Sports"){
       img = `<img src="images/fc.png">`;
     }
@@ -1098,7 +1197,18 @@ function loadNominal(){
    else if(selectedGame === "HOK"){
       img = `<img src="/tokens.png">`;
     }
-
+    else if(selectedGame === "Ace Racer"){
+  img = `<img src="/tokensAC.png">`;
+    }
+    else if(selectedGame === "Black Clover"){
+  img = `<img src="/black crystals.png">`;
+}
+else if(selectedGame === "PUBG New State"){
+  img = `<img src="/st.png">`;
+}
+else if(selectedGame === "Sausage Man"){
+  img = `<img src="/candy.png">`;
+}
     div.innerHTML = `
       <div class="item-box">
         <div class="item-top">
