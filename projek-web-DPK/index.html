@@ -684,6 +684,21 @@ button { cursor:pointer; margin-top:5px; }
     <span>XD Entertainment</span>
   </div>
 </div>
+<div class="game" onclick="selectGame('Honkai Star Rail', this)">
+  <img src="/hsr.jpg">
+  <div class="game-info">
+    <h3>Honkai Star Rail</h3>
+    <span>HoYoverse</span>
+  </div>
+</div>
+
+<div class="game" onclick="selectGame('Super Sus', this)">
+  <img src="/supersus.jpg">
+  <div class="game-info">
+    <h3>Super Sus</h3>
+    <span>PIProductions</span>
+  </div>
+</div>
 
 </div>
   <!-- tambahin game lain bebas -->
@@ -896,12 +911,15 @@ const dataGame = {
   {name:"330 Crystals", price:75000, type:"crystal"},
   {name:"660 Crystals", price:150000, type:"crystal"},
   {name:"1320 Crystals", price:300000, type:"crystal"},
-  
-  {name:"30 B-Chips", price:8000, type:"bchips"},
-  {name:"98 B-Chips", price:25000, type:"bchips"},
-  {name:"330 B-Chips", price:75000, type:"bchips"},
-  {name:"990 B-Chips", price:220000, type:"bchips"},
-  {name:"1320 B-Chips", price:290000, type:"bchips"},
+
+  {name:"30 B-Chips", price:7822, type:"bchips"},
+  {name:"65 B-Chips", price:15364, type:"bchips"},
+  {name:"330 B-Chips", price:78214, type:"bchips"},
+  {name:"990 B-Chips", price:231847, type:"bchips"},
+  {name:"1320 B-Chips", price:310060, type:"bchips"},
+  {name:"1980 B-Chips", price:466486, type:"bchips"},
+  {name:"3300 B-Chips", price:782132, type:"bchips"},
+  {name:"6600 B-Chips", price:1536330, type:"bchips"},
 ],
 "ZEPETO":[
   {name:"4,680 Coin", price:15315, type:"coin"},
@@ -988,6 +1006,24 @@ const dataGame = {
   {name:"2118 Candy",price:380000},
   {name:"3548 Candy",price:635000},
   {name:"7108 Candy",price:1270500}
+],
+"Honkai Star Rail":[
+  {name:"60 Oneiric Shard (ID)", price:16013, type:"shard"},
+  {name:"330 (300+30) Oneiric Shard (ID)", price:79059, type:"shard"},
+  {name:"Express Supply Pass (ID)", price:79059, type:"pass"},
+  {name:"1090 (980+110) Oneiric Shard (ID)", price:249182, type:"shard"},
+  {name:"2240 (1980+260) Oneiric Shard (ID)", price:479350, type:"shard"},
+  {name:"3880 (3280+600) Oneiric Shard (ID)", price:799583, type:"shard"},
+  {name:"8080 (6480+1600) Oneiric Shard (ID)", price:1600165, type:"shard"},
+],
+
+"Super Sus":[
+  {name:"100 Golden Star", price:11650},
+  {name:"310 Golden Star", price:34000},
+  {name:"520 Golden Star", price:57000},
+  {name:"1060 Golden Star", price:116000},
+  {name:"2100 Golden Star", price:228500},
+  {name:"5600 Golden Star", price:605500},
 ],
 };
 
@@ -1127,6 +1163,19 @@ else if(game === "Sausage Man"){
   document.getElementById("userId").placeholder = "Masukkan User ID";
   serverInput.style.display = "none";
 }
+else if(game === "Honkai Star Rail"){
+  title.innerText = "Pilih Oneiric Shard";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverLabel.innerText = "Server";
+  serverInput.style.display = "block";
+}
+else if(game === "Super Sus"){
+  title.innerText = "Pilih Golden Star";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverInput.style.display = "none";
+}
   else {
   title.innerText = "Pilih Diamond";
   idLabel.innerText = "ID";
@@ -1171,8 +1220,19 @@ function loadNominal(){
       img = `<img src="/vp.png">`;
     }
     else if(selectedGame === "Honkai Impact"){
-      img = `<img src="/honkai.png">`;
-    }
+
+  if(item.type === "crystal"){
+    img = `<img src="/Crystalshki.webp">`;
+  }
+
+  else if(item.type === "bchips"){
+    img = `<img src="/B-Chip.webp">`;
+  }
+
+  else if(item.type === "monthly"){
+    img = `<img src="/monthlyhki.png">`;
+  }
+}
     else if(selectedGame === "ZEPETO"){
 
   if(item.name.includes("Coin")){
@@ -1189,7 +1249,7 @@ function loadNominal(){
 
 }
     else if(selectedGame === "EA Sports"){
-      img = `<img src="images/fc.png">`;
+      img = `<img src="images/eafc.png">`;
     }
     else if(selectedGame === "Blood Strike"){
       img = `<img src="/gold.png">`;
@@ -1208,6 +1268,19 @@ else if(selectedGame === "PUBG New State"){
 }
 else if(selectedGame === "Sausage Man"){
   img = `<img src="/candy.png">`;
+}
+else if(selectedGame === "Honkai Star Rail"){
+
+  if(item.type === "shard"){
+    img = `<img src="/oneiric.png">`;
+  }
+  else if(item.type === "pass"){
+    img = `<img src="/express.png">`; // khusus express pass
+  }
+
+}
+else if(selectedGame === "Super Sus"){
+  img = `<img src="/goldenstar.png">`;
 }
     div.innerHTML = `
       <div class="item-box">
