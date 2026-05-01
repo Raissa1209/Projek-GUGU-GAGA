@@ -684,19 +684,36 @@ button { cursor:pointer; margin-top:5px; }
     <span>XD Entertainment</span>
   </div>
 </div>
+
 <div class="game" onclick="selectGame('Honkai Star Rail', this)">
-  <img src="/hsr.jpg">
+  <img src="/honkaist.jpeg">
   <div class="game-info">
     <h3>Honkai Star Rail</h3>
     <span>HoYoverse</span>
   </div>
 </div>
 
+<div class="game" onclick="selectGame('Bleach', this)">
+  <img src="/bleach.jpeg">
+  <div class="game-info">
+    <h3>Bleach</h3>
+    <span>Publisher</span>
+  </div>
+</div>
+
 <div class="game" onclick="selectGame('Super Sus', this)">
-  <img src="/supersus.jpg">
+  <img src="/among us.jpeg">
   <div class="game-info">
     <h3>Super Sus</h3>
     <span>PIProductions</span>
+  </div>
+</div>
+
+<div class="game" onclick="selectGame('League of Legends', this)">
+  <img src="/lol.jpg">
+  <div class="game-info">
+    <h3>League of Legends</h3>
+    <span>Riot Games</span>
   </div>
 </div>
 
@@ -1016,7 +1033,21 @@ const dataGame = {
   {name:"3880 (3280+600) Oneiric Shard (ID)", price:799583, type:"shard"},
   {name:"8080 (6480+1600) Oneiric Shard (ID)", price:1600165, type:"shard"},
 ],
-
+"Bleach":[
+  {name:"120 Crystal",price:20944},
+  {name:"180 Crystal",price:31691},
+  {name:"300 Crystal",price:52358},
+  {name:"360 Crystal",price:63381},
+  {name:"450 Crystal",price:78536},
+  {name:"600 Crystal",price:104715},
+  {name:"900 Crystal",price:157071},
+  {name:"1530 Crystal",price:265918},
+  {name:"1980 Crystal",price:343075},
+  {name:"2970 Crystal",price:515302},
+  {name:"3000 Crystal",price:523568},
+  {name:"4950 Crystal",price:858377},
+  {name:"9000 Crystal",price:1559682}
+],
 "Super Sus":[
   {name:"100 Golden Star", price:11650},
   {name:"310 Golden Star", price:34000},
@@ -1024,6 +1055,16 @@ const dataGame = {
   {name:"1060 Golden Star", price:116000},
   {name:"2100 Golden Star", price:228500},
   {name:"5600 Golden Star", price:605500},
+],
+"League of Legends":[
+  {name:"425 WC", price:54000},
+  {name:"1000 WC", price:120500},
+  {name:"1850 WC", price:217000},
+  {name:"3275 WC", price:381500},
+  {name:"4800 WC", price:545500},
+  {name:"6650 WC", price:755000},
+  {name:"8075 WC", price:910000},
+  {name:"10000 WC", price:1090500}
 ],
 };
 
@@ -1170,10 +1211,22 @@ else if(game === "Honkai Star Rail"){
   serverLabel.innerText = "Server";
   serverInput.style.display = "block";
 }
+else if(game === "Bleach"){
+  title.innerText = "Pilih Crystal";
+  idLabel.innerText = "User ID";
+  document.getElementById("userId").placeholder = "Masukkan ID";
+  serverInput.style.display = "none";
+}
 else if(game === "Super Sus"){
   title.innerText = "Pilih Golden Star";
   idLabel.innerText = "User ID";
   document.getElementById("userId").placeholder = "Masukkan ID";
+  serverInput.style.display = "none";
+}
+else if(game === "League of Legends"){
+  title.innerText = "Pilih Wild Core";
+  idLabel.innerText = "Riot ID";
+  document.getElementById("userId").placeholder = "Masukkan Riot ID";
   serverInput.style.display = "none";
 }
   else {
@@ -1279,8 +1332,12 @@ else if(selectedGame === "Honkai Star Rail"){
   }
 
 }
+
 else if(selectedGame === "Super Sus"){
   img = `<img src="/goldenstar.png">`;
+}
+else if(selectedGame === "League of Legends"){
+  img = `<img src="/wd.png">`;
 }
     div.innerHTML = `
       <div class="item-box">
