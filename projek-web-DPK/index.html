@@ -7,7 +7,7 @@
 body {
   font-family: Arial;
   margin: 0;
-  background: linear-gradient(#ffffff, #b3cde0, #2b5c92,#0c1446);
+  background: linear-gradient(#2e3c95, #d7e0ff, #8394bc, #2b5c92,#0c1446);
   color: rgb(229, 237, 255);
 }
  
@@ -56,7 +56,7 @@ body {
   border:none;
   border-radius:8px;
   background: rgba(181, 205, 245, 0.783);
-  color:rgb(35, 72, 121);
+  color:rgb(26, 49, 141);
   cursor:pointer;
   font-weight:bold;
 }
@@ -127,7 +127,7 @@ body {
 
 .popular-section p{
   margin-bottom: 20px;
-  color: #d8e6ff;
+  color: #3667bc;
 }
 
 .popular-grid{
@@ -137,7 +137,7 @@ body {
 }
 
 .popular-item{
-  background: linear-gradient(135deg,#469cff,#b8c0f0);
+  background: linear-gradient(135deg,#2b40a9,#a4aff0);
   border-radius: 18px;
   padding: 14px;
   display: flex;
@@ -305,11 +305,12 @@ body {
 
 /* INPUT */
 input, select {
-  width:100%;
-  padding:10px;
-  margin-top:5px;
-  border-radius:5px;
-  border:none;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box; /* penting */
 }
 
 /* GRID DIAMOND */
@@ -821,7 +822,12 @@ button { cursor:pointer; margin-top:5px; }
   <p id="rekeningTujuan" style="margin-top:10px;"></p>
  <input type="text" id="rekeningUser" placeholder="Masukkan No Rekening Kamu">
 
-<button onclick="confirmBank()" style="width:100%; margin-top:10px;">
+<button id="payBankBtn" onclick="payBank()" style="width:100%; margin-top:10px;">
+  Bayar Dulu
+</button>
+
+<button id="confirmBankBtn" onclick="confirmBank()" 
+style="width:100%; margin-top:10px; display:none;">
   Selesai Transfer Bank
 </button>
 
@@ -1075,6 +1081,140 @@ let selectedGame = "Free Fire";
 function selectGame(game, el){
   selectedGame = game;
 
+  const inputConfig = {
+  "Mobile Legends": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: true
+  },
+
+  "MCGG": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: true
+  },
+
+  "Honkai Star Rail": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: true
+  },
+
+  "Genshin Impact": {
+    idLabel: "UID",
+    idPlaceholder: "Masukkan UID",
+    server: true
+  },
+
+  "PUBG": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: false
+  },
+
+  "Free Fire": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: false
+  },
+
+  "HOK": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: false
+  },
+
+  "Ace Racer": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: false
+  },
+
+  "EA Sports": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: false
+  },
+
+  "Blood Strike": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: false
+  },
+
+  "Honkai Impact": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: false
+  },
+
+  "Super Sus": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: false
+  },
+
+  "Sausage Man": {
+    idLabel: "ID",
+    idPlaceholder: "Masukkan ID",
+    server: false
+  },
+
+  "Black Clover": {
+    idLabel: "AID",
+    idPlaceholder: "Masukkan AID",
+    server: false
+  },
+
+  "PUBG New State": {
+    idLabel: "Account ID",
+    idPlaceholder: "Masukkan Account ID",
+    server: false
+  },
+
+  "COD Mobile": {
+    idLabel: "Open ID",
+    idPlaceholder: "Masukkan Open ID",
+    server: false
+  },
+
+  "Valorant": {
+    idLabel: "Riot ID",
+    idPlaceholder: "Masukkan Riot ID",
+    server: false
+  },
+
+  "Roblox": {
+    idLabel: "Username",
+    idPlaceholder: "Masukkan Username",
+    server: false
+  },
+
+  "ZEPETO": {
+    idLabel: "Username",
+    idPlaceholder: "Masukkan Username",
+    server: false
+  },
+
+  "Bleach": {
+    idLabel: "Username ID",
+    idPlaceholder: "Masukkan Username ID",
+    server: true
+  }
+};
+
+const config = inputConfig[game] || {
+  idLabel: "ID",
+  idPlaceholder: "Masukkan ID",
+  server: false
+};
+
+document.getElementById("idLabel").innerText = config.idLabel;
+document.getElementById("userId").placeholder = config.idPlaceholder;
+
+document.getElementById("serverInput").style.display =
+  config.server ? "block" : "none";
+
   document.querySelectorAll(".game").forEach(x=>x.classList.remove("active"));
   document.querySelectorAll(".popular-item").forEach(x=>x.classList.remove("active"));
 
@@ -1109,132 +1249,7 @@ function selectGame(game, el){
   const serverInput = document.getElementById("serverInput");
   const serverLabel = document.getElementById("serverLabel");
 
-  // 🔥 RULE PER GAME
- if(game === "PUBG"){
-  title.innerText = "Pilih UC";
-  idLabel.innerText = "ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverInput.style.display = "none";
-}
-  else if(game === "Genshin Impact"){
-  title.innerText = "Pilih Crystals";
-  idLabel.innerText = "UID";
-  document.getElementById("userId").placeholder = "Masukkan UID";
-  serverLabel.innerText = "Server";
-  serverInput.style.display = "block";
-}
-  else if(game === "Mobile Legends"){
-  title.innerText = "Pilih Diamond";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverLabel.innerText = "Server";
-  serverInput.style.display = "block";
-}
- else if(game === "Roblox"){
-  title.innerText = "Pilih Robux";
-  idLabel.innerText = "Username";
-  document.getElementById("userId").placeholder = "Masukkan Username";
-  serverInput.style.display = "none";
- }
-  else if(game === "Valorant"){
-  title.innerText = "Pilih VP";
-  idLabel.innerText = "Riot ID";
-  document.getElementById("userId").placeholder = "Masukkan Riot ID";
-  serverInput.style.display = "none";
-}
-  else if(game === "Honkai Impact"){
-  title.innerText = "Pilih Item";
-  idLabel.innerText = "UID";
-  document.getElementById("userId").placeholder = "Masukkan UID";
-  serverLabel.innerText = "Server";
-  serverInput.style.display = "block";
-}
-else if(game === "ZEPETO"){
-  title.innerText = "Pilih Item";
-  idLabel.innerText = "Username";
-  document.getElementById("userId").placeholder = "Masukkan Username";
-  serverInput.style.display = "none";
-}
-else if(game === "EA Sports"){
-  title.innerText = "Pilih Point";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverInput.style.display = "none";
-}
-else if(game === "Blood Strike"){
-  title.innerText = "Pilih Gold";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverInput.style.display = "none";
-}
-else if(game === "MCGG"){
-  title.innerText = "Pilih Diamond";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverLabel.innerText = "Server";
-  serverInput.style.display = "block";
-}
-else if(game === "HOK"){
-  title.innerText = "Pilih Token";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverInput.style.display = "none";
-}
-else if(game === "Ace Racer"){
-  title.innerText = "Pilih Tokens";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverInput.style.display = "none";
-}
-else if(game === "Black Clover"){
-  title.innerText = "Pilih Black Crystals";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverInput.style.display = "none";
-}
-else if(game === "PUBG New State"){
-  title.innerText = "Pilih NC";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan User ID";
-  serverInput.style.display = "none";
-}
-else if(game === "Sausage Man"){
-  title.innerText = "Pilih Candy";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan User ID";
-  serverInput.style.display = "none";
-}
-else if(game === "Honkai Star Rail"){
-  title.innerText = "Pilih Oneiric Shard";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverLabel.innerText = "Server";
-  serverInput.style.display = "block";
-}
-else if(game === "Bleach"){
-  title.innerText = "Pilih Crystal";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverInput.style.display = "none";
-}
-else if(game === "Super Sus"){
-  title.innerText = "Pilih Golden Star";
-  idLabel.innerText = "User ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverInput.style.display = "none";
-}
-else if(game === "League of Legends"){
-  title.innerText = "Pilih Wild Core";
-  idLabel.innerText = "Riot ID";
-  document.getElementById("userId").placeholder = "Masukkan Riot ID";
-  serverInput.style.display = "none";
-}
-  else {
-  title.innerText = "Pilih Diamond";
-  idLabel.innerText = "ID";
-  document.getElementById("userId").placeholder = "Masukkan ID";
-  serverInput.style.display = "none";
-}
+
   // tampilkan section
   document.getElementById("userSection").style.display = "block";
   document.getElementById("diamondSection").style.display = "block";
@@ -1257,9 +1272,19 @@ function loadNominal(){
     let img = "";
 
     // 🔥 ICON PER GAME / ITEM
-    if(selectedGame === "Free Fire" || selectedGame === "Mobile Legends" || selectedGame === "MCGG"){
-      img = `<img src="/ff.dm.png">`;
-    }
+   if(selectedGame === "Free Fire" || selectedGame === "MCGG"){
+  img = `<img src="/ff.dm.png">`;
+}
+
+else if(selectedGame === "Mobile Legends"){
+
+  if(item.name.includes("Weekly Diamond Pass")){
+    img = `<img src="/wdp.jpg">`; // gambar WDP
+  } else {
+    img = `<img src="/ff.dm.png">`; // diamond biasa
+  }
+
+}
     else if(selectedGame === "PUBG"){
       img = `<img src="/uc.pubg.png">`;
     }
@@ -1546,6 +1571,30 @@ function changePayment(){
   showNotification("Silakan lakukan pembayaran");
 
 // ✅ BENAR (di luar function lain)
+
+function payBank(){
+  const bank = document.getElementById("bankSelect").value;
+  const rekUser = document.getElementById("rekeningUser").value;
+
+  if(!bank){
+    alert("Pilih bank dulu!");
+    return;
+  }
+
+  if(!rekUser){
+    alert("Masukkan nomor rekening kamu!");
+    return;
+  }
+
+  alert("Silakan transfer terlebih dahulu");
+
+  // tombol bayar hilang
+  document.getElementById("payBankBtn").style.display = "none";
+
+  // tombol selesai transfer muncul
+  document.getElementById("confirmBankBtn").style.display = "block";
+}
+
 function confirmBank(){
   const bank = document.getElementById("bankSelect").value;
   const rekUser = document.getElementById("rekeningUser").value;
