@@ -7,7 +7,7 @@
 body {
   font-family: Arial;
   margin: 0;
-  background: linear-gradient(#2e3c95, #d7e0ff, #8394bc, #2b5c92,#0c1446);
+  background: linear-gradient(#303c89, #d7e0ff, #8394bc, #2b5c92,#0c1446);
   color: rgb(229, 237, 255);
 }
  
@@ -35,14 +35,20 @@ body {
   top: 0;
 }
 .navbar {
-  background: rgba(43, 70, 137, 0.685);
+  background: rgba(23, 46, 107, 0.35); /* lebih transparan */
+  backdrop-filter: blur(12px); /* efek blur */
+  -webkit-backdrop-filter: blur(12px); /* biar support Safari */
+  
   padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   position: sticky;
   top: 0;
-  z-index: 1000; 
+  z-index: 1000;
+
+  border-bottom: 1px solid rgba(255,255,255,0.1); /* opsional */
 }
 .logo-area{
   display:flex;
@@ -55,8 +61,8 @@ body {
   padding: 8px 15px;
   border:none;
   border-radius:8px;
-  background: rgba(181, 205, 245, 0.783);
-  color:rgb(26, 49, 141);
+  background: rgba(213, 229, 255, 0.783);
+  color:rgb(57, 75, 146);
   cursor:pointer;
   font-weight:bold;
 }
@@ -477,6 +483,25 @@ button { cursor:pointer; margin-top:5px; }
 </head>
 <body>
 
+<div id="customAlert" style="
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:10px;
+  z-index:9999;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  text-align:center;
+">
+  <h3>Admin GuguGaga says</h3>
+  <p id="alertMsg"></p>
+  <button onclick="closeAlert()">OK</button>
+</div>
+
 <!-- TAMBAHAN DI NAVBAR -->
 <div class="navbar">
   <div class="logo-area">
@@ -848,7 +873,9 @@ style="width:100%; margin-top:10px; display:none;">
 </div>
 </div>
 
+<div class="bottom-blur"></div>
 <script>
+  
 // DATA
 let indexSlide = 0;
 const slides = document.getElementById("slides");
@@ -976,7 +1003,7 @@ const dataGame = {
   {name:"320 Gold", price:37838},
   {name:"540 Gold", price:63000},
   {name:"1100 Gold", price:126126},
-  {name:"1100 Gold (Promo)", price:252252}
+  {name:"1100 Gold ", price:252252}
 ],
 "MCGG":[
   {name:"5 Diamond",price:1000},
@@ -998,11 +1025,11 @@ const dataGame = {
   {name:"8360 Tokens",price:1495000}
 ],
 "Ace Racer":[
-  {name:"270 (250+20 Bonus) Tokens",price:52500},
-  {name:"740 (680+60 Bonus) Tokens",price:130500},
-  {name:"1300 (1180+120 Bonus) Tokens",price:235000},
-  {name:"3180 (2880+300 Bonus) Tokens",price:599000},
-  {name:"6530 (5880+650 Bonus) Tokens",price:1175000}
+  {name:"270 Tokens",price:52500},
+  {name:"740 Tokens",price:130500},
+  {name:"1300 Tokens",price:235000},
+  {name:"3180 Tokens",price:599000},
+  {name:"6530 Tokens",price:1175000}
 ],
 "Black Clover":[
   {name:"86 Black Crystals",price:27000},
@@ -1032,12 +1059,12 @@ const dataGame = {
 ],
 "Honkai Star Rail":[
   {name:"60 Oneiric Shard (ID)", price:16013, type:"shard"},
-  {name:"330 (300+30) Oneiric Shard (ID)", price:79059, type:"shard"},
+  {name:"330 Oneiric Shard (ID)", price:79059, type:"shard"},
   {name:"Express Supply Pass (ID)", price:79059, type:"pass"},
-  {name:"1090 (980+110) Oneiric Shard (ID)", price:249182, type:"shard"},
-  {name:"2240 (1980+260) Oneiric Shard (ID)", price:479350, type:"shard"},
-  {name:"3880 (3280+600) Oneiric Shard (ID)", price:799583, type:"shard"},
-  {name:"8080 (6480+1600) Oneiric Shard (ID)", price:1600165, type:"shard"},
+  {name:"1090 Oneiric Shard (ID)", price:249182, type:"shard"},
+  {name:"2240 Oneiric Shard (ID)", price:479350, type:"shard"},
+  {name:"3880 Oneiric Shard (ID)", price:799583, type:"shard"},
+  {name:"8080 Oneiric Shard (ID)", price:1600165, type:"shard"},
 ],
 "Bleach":[
   {name:"120 Crystal",price:20944},
@@ -1300,7 +1327,7 @@ else if(selectedGame === "Mobile Legends"){
     else if(selectedGame === "Honkai Impact"){
 
   if(item.type === "crystal"){
-    img = `<img src="/Crystalshki.webp">`;
+    img = `<img src="/crhki.webp">`;
   }
 
   else if(item.type === "bchips"){
@@ -1327,7 +1354,7 @@ else if(selectedGame === "Mobile Legends"){
 
 }
     else if(selectedGame === "EA Sports"){
-      img = `<img src="images/eafc.png">`;
+      img = `<img src="/eafc.png">`;
     }
     else if(selectedGame === "Blood Strike"){
       img = `<img src="/gold.png">`;
@@ -1350,16 +1377,16 @@ else if(selectedGame === "Sausage Man"){
 else if(selectedGame === "Honkai Star Rail"){
 
   if(item.type === "shard"){
-    img = `<img src="/oneiric.png">`;
+    img = `<img src="/crystalhsr.png">`;
   }
   else if(item.type === "pass"){
-    img = `<img src="/express.png">`; // khusus express pass
+    img = `<img src="/spmhsr.png">`; // khusus express pass
   }
 
 }
 
 else if(selectedGame === "Super Sus"){
-  img = `<img src="/goldenstar.png">`;
+  img = `<img src="/gldn.jpg">`;
 }
 else if(selectedGame === "League of Legends"){
   img = `<img src="/wd.png">`;
@@ -1390,10 +1417,15 @@ else if(selectedGame === "League of Legends"){
   });
 }
 let jumlah = 1;
+const maxJumlah = 5;
 
 function tambahJumlah(){
-  jumlah++;
-  document.getElementById("jumlah").value = jumlah;
+  if(jumlah < maxJumlah){
+    jumlah++;
+    document.getElementById("jumlah").value = jumlah;
+  } else {
+    alert("Maksimal pembelian 5 item");
+  }
 }
 
 function kurangJumlah(){
@@ -1402,6 +1434,23 @@ function kurangJumlah(){
     document.getElementById("jumlah").value = jumlah;
   }
 }
+
+// kalau user ketik manual
+document.getElementById("jumlah").addEventListener("input", function(){
+  let value = parseInt(this.value);
+
+  if(isNaN(value) || value < 1){
+    value = 1;
+  }
+
+  if(value > maxJumlah){
+    value = maxJumlah;
+    alert("Maksimal pembelian 5 item");
+  }
+
+  jumlah = value;
+  this.value = value;
+});
 
 // CART
 function addToCart() {
