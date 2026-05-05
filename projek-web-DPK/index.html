@@ -425,6 +425,13 @@ input, select {
 
 button { cursor:pointer; margin-top:5px; }
 
+.paid-btn{
+  background: gray !important;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
 #qrisBox {
   background: rgba(255,255,255,0.1);
   padding: 15px;
@@ -836,25 +843,67 @@ button { cursor:pointer; margin-top:5px; }
   <button onclick="closeModal()">Batal</button>
 
   <!-- INPUT REKENING -->
- <div id="bankBox" style="display:none; margin-top:10px;">
   
+ 
   <select id="bankSelect" onchange="showRekening()">
-    <option value="">-- Pilih Bank --</option>
-    <option value="BRI">BRI</option>
-    <option value="BCA">BCA</option>
-    <option value="Mandiri">Mandiri</option>
-  </select>
+  <option value="">-- Pilih Bank --</option>
+  <option value="BRI">BRI</option>
+  <option value="BNI">BNI</option>
+  <option value="Mandiri">Mandiri</option>
+  <option value="Permata">Permata</option>
+  <option value="BCA">BCA</option>
+  <option value="Other">Other Bank</option>
+</select>
   <p id="rekeningTujuan" style="margin-top:10px;"></p>
  <input type="text" id="rekeningUser" placeholder="Masukkan No Rekening Kamu">
 
 <button id="payBankBtn" onclick="payBank()" style="width:100%; margin-top:10px;">
-  Bayar Dulu
+  Bayar
 </button>
 
-<button id="confirmBankBtn" onclick="confirmBank()" 
-style="width:100%; margin-top:10px; display:none;">
-  Selesai Transfer Bank
-</button>
+<div id="bankBox" style="display:none; margin-top:10px;">
+  <label>Pilih Bank</label>
+
+  <select id="bankSelect" onchange="showRekening()">
+    <option value="">-- Pilih Bank --</option>
+    <option value="BRI">BRI</option>
+    <option value="BNI">BNI</option>
+    <option value="Mandiri">Mandiri</option>
+    <option value="Permata">Permata</option>
+    <option value="BCA">BCA</option>
+    <option value="Other">Other Bank</option>
+  </select>
+
+  <p id="rekeningTujuan"></p>
+
+  <input type="text" id="rekeningUser" placeholder="Masukkan No Rekening Kamu">
+
+  <button onclick="showUpload()" style="width:100%; margin-top:10px;">
+    Saya Sudah Transfer
+  </button>
+</div>
+
+<!-- 🔥 Upload dipisah -->
+<div id="uploadBox" style="display:none; margin-top:10px;">
+  <label>Upload Bukti Transfer</label>
+  <input type="file" id="buktiTf" accept="image/*">
+
+  <img id="previewBukti" style="width:100%; margin-top:10px; display:none; border-radius:10px;">
+
+  <button onclick="payBank()" style="width:100%; margin-top:10px;">
+    Kirim Bukti
+  </button>
+</div>
+
+<div id="paymentReceipt" style="
+  display:none;
+  margin-top:20px;
+  background:white;
+  color:black;
+  padding:15px;
+  border-radius:10px;
+">
+</div>
 
 <button onclick="resetApp()" style="width:100%; margin-top:5px; background:rgb(255, 255, 255); color:rgb(21, 21, 21);">
   Keluar
@@ -874,6 +923,7 @@ style="width:100%; margin-top:10px; display:none;">
 </div>
 
 <div class="bottom-blur"></div>
+
 <script>
   
 // DATA
@@ -1569,25 +1619,17 @@ function changePayment(){
     document.getElementById("bankBox").style.display = "block";
   }
 }
-  // ✅ VALIDASI REKENING
+function showUpload(){
+  document.getElementById("uploadBox").style.display = "block";
+}
 
  function checkoutConfirm(){
   const method = document.getElementById("paymentMethod").value;
   const cart = JSON.parse(localStorage.getItem("cartList")) || [];
 
-  if(method === "Bank"){
-    const bank = document.getElementById("bankSelect").value;
-    const rekUser = document.getElementById("rekeningUser").value;
-
-    if(!bank){
-      alert("Pilih bank terlebih dahulu!");
-      return;
-    }
-
-    if(!rekUser){
-      alert("Masukkan nomor rekening kamu!");
-      return;
-    }
+  if(!method){
+    alert("Pilih metode pembayaran dulu!");
+    return;
   }
 
   createTransaction(cart, method);
@@ -1605,44 +1647,84 @@ function changePayment(){
   showNotification("Silakan lakukan pembayaran");
 }
 
-  createTransaction(cart, method);
-
-  const total = cart.reduce((a,b)=>a+b.price,0);
-
-  if(method === "E-Wallet"){
-    document.getElementById("qrisBox").style.display = "block";
-    generateQR(total);
-  } else {
-    alert("Silakan transfer ke rekening tujuan");
-    closeModal();
-  }
-
-  showNotification("Silakan lakukan pembayaran");
-
-// ✅ BENAR (di luar function lain)
-
 function payBank(){
+  const buktiInput = document.getElementById("buktiTf").files[0];
+
+if(!buktiInput){
+  alert("Upload bukti transfer dulu!");
+  return;
+}
+const reader = new FileReader();
+
+reader.onload = function(e){
+  trx.bukti = e.target.result; // simpan gambar base64
+
+  localStorage.setItem("transaction", JSON.stringify(trx));
+
+  generateReceipt(trx);
+
+  alert("Pembayaran berhasil!");
+}
+
+reader.readAsDataURL(buktiInput);
   const bank = document.getElementById("bankSelect").value;
   const rekUser = document.getElementById("rekeningUser").value;
 
   if(!bank){
-    alert("Pilih bank dulu!");
+    alert("Pilih bank terlebih dahulu!");
     return;
   }
 
   if(!rekUser){
-    alert("Masukkan nomor rekening kamu!");
+    alert("Masukkan rekening pengirim!");
     return;
   }
 
-  alert("Silakan transfer terlebih dahulu");
+  // ambil transaksi
+  let trx = JSON.parse(localStorage.getItem("transaction"));
 
-  // tombol bayar hilang
-  document.getElementById("payBankBtn").style.display = "none";
+  if(!trx){
+    alert("Tidak ada transaksi!");
+    return;
+  }
 
-  // tombol selesai transfer muncul
-  document.getElementById("confirmBankBtn").style.display = "block";
+  // update transaksi
+  trx.status = "Terbayar";
+  trx.bank = bank;
+  trx.senderRek = rekUser;
+  trx.paymentTime = new Date().toLocaleString("id-ID");
+
+  localStorage.setItem("transaction", JSON.stringify(trx));
+
+  // tampilkan bukti pembayaran
+  generateReceipt(trx);
+
+  // notif
+  alert("Pembayaran berhasil!");
 }
+
+
+function generateReceipt(trx){
+  const receipt = document.getElementById("paymentReceipt");
+
+  receipt.style.display = "block";
+
+  receipt.innerHTML = `
+    <h3>BUKTI PEMBAYARAN</h3>
+    <hr>
+
+    <p><b>ID Transaksi:</b> ${trx.id}</p>
+    <p><b>Bank:</b> ${trx.bank}</p>
+    <p><b>No Rek Pengirim:</b> ${trx.senderRek}</p>
+    <p><b>Total:</b> Rp ${trx.total}</p>
+    <p><b>Status:</b> ${trx.status}</p>
+    <p><b>Waktu:</b> ${trx.paymentTime}</p>
+
+    <hr>
+    <p>Terima kasih telah top up di GUGUGAGA.STORE</p>
+  `;
+}
+
 
 function confirmBank(){
   const bank = document.getElementById("bankSelect").value;
@@ -1658,27 +1740,32 @@ function confirmBank(){
     return;
   }
 
-  // 🔥 jalankan dulu proses
+  // proses transaksi selesai
   payNow();
 
-  // baru kasih notif
   alert("Transfer berhasil dikonfirmasi!");
 }
+
 function showRekening(){
   const bank = document.getElementById("bankSelect").value;
   const rekText = document.getElementById("rekeningTujuan");
 
-  if(bank === "BRI"){
-    rekText.innerText = "No Rekening BRI: 123456789 a.n TopUp Game";
-  } 
-  else if(bank === "BCA"){
-    rekText.innerText = "No Rekening BCA: 0987654321 a.n TopUp Game";
-  } 
-  else if(bank === "Mandiri"){
-    rekText.innerText = "No Rekening Mandiri: 120920291 a.n TopUp Game";
-  } 
-  else {
-    rekText.innerText = "";
+  const rekeningList = {
+    "BRI": "1234567890",
+    "BNI": "2233445566",
+    "Mandiri": "9988776655",
+    "Permata": "5566778899",
+    "BCA": "1122334455",
+    "Other": "000111222333"
+  };
+
+  if(bank){
+    rekText.innerHTML =
+      `Transfer ke Bank ${bank}<br>
+       No Rekening: <b>${rekeningList[bank]}</b><br>
+       a.n GUGUGAGA STORE`;
+  }else{
+    rekText.innerHTML = "";
   }
 }
 
@@ -1817,6 +1904,26 @@ function showNotification(msg){
 // LOAD DEFAULT
 loadNominal();
 updateCartDisplay();
+// LOAD DEFAULT
+loadNominal();
+updateCartDisplay();
+
+
+// 🔥 TAMBAHKAN DI SINI
+document.getElementById("buktiTf").addEventListener("change", function(){
+  const file = this.files[0];
+  if(file){
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+      const preview = document.getElementById("previewBukti");
+      preview.src = e.target.result;
+      preview.style.display = "block";
+    }
+
+    reader.readAsDataURL(file);
+  }
+});
 </script>
 
 </body>
