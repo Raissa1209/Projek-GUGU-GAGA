@@ -397,33 +397,58 @@ input, select {
 
 /* MODAL LOGIN/REGISTER & CHECKOUT */
 .modal-bg {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: rgba(0,0,0,0.6);
-  display:none;
-  justify-content:center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 
-  align-items: flex-start;  
-  padding-top: 40px;        
-  z-index:10;
+  background: rgba(0,0,0,0.6);
+
+  display: none;
+
+  justify-content: center;
+  align-items: center; /* bikin ke tengah */
+
+  z-index: 999;
 }
 
 .modal {
-  background: rgba(255,255,255,0.1);
-  padding:20px;
-  border-radius:10px;
-  width:300px;
-  max-width:90%;
-  color:white;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
 
-  max-height: 90vh;   
-  overflow-y: auto;  
+  padding: 25px;
+  border-radius: 15px;
+
+  width: 320px;
+  max-width: 90%;
+
+  color: white;
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 button { cursor:pointer; margin-top:5px; }
+
+.checkout-buttons{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.checkout-buttons button{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #d5e5ff;
+  color: #394b92;
+  font-weight: bold;
+  cursor: pointer;
+}
 
 .paid-btn{
   background: gray !important;
@@ -474,6 +499,17 @@ button { cursor:pointer; margin-top:5px; }
   .grid { grid-template-columns:1fr; }
 }
 
+.logout-btn{
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  color: black;
+  cursor: pointer;
+}
+
 /* NOTIFICATION */
 #notif {
   position: fixed;
@@ -485,6 +521,127 @@ button { cursor:pointer; margin-top:5px; }
   border-radius: 8px;
   display: none;
   z-index: 20;
+}
+/* =========================
+   FOOTER
+========================= */
+
+.gg-footer{
+  margin-top:80px;
+  padding:50px 40px;
+
+  background: linear-gradient(
+    135deg,
+    #2f3d88,
+    #6678b7,
+    #95a2c9
+  );
+
+  border-top-left-radius:30px;
+  border-top-right-radius:30px;
+
+  color:white;
+}
+
+/* ATAS */
+.gg-footer-top{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:30px;
+}
+
+.gg-footer-logo{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+}
+
+.gg-footer-top h1{
+  margin:0;
+  font-size:38px;
+}
+
+.gg-footer-top p{
+  margin-top:10px;
+  font-size:18px;
+  line-height:1.6;
+  color:#f3f3f3;
+}
+
+/* WHATSAPP */
+.gg-footer-social{
+  margin-bottom:40px;
+}
+
+.gg-wa{
+  width:75px;
+  height:75px;
+  border-radius:18px;
+  transition:0.3s;
+}
+
+.gg-wa:hover{
+  transform:scale(1.08);
+}
+
+/* MENU */
+.gg-footer-menu{
+  display:flex;
+  justify-content:space-between;
+  gap:40px;
+  flex-wrap:wrap;
+}
+
+.gg-col{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.gg-col h3{
+  margin-bottom:12px;
+  font-size:24px;
+  color:white;
+}
+
+.gg-col a{
+  color:#ededed;
+  text-decoration:none;
+  font-size:18px;
+  transition:0.3s;
+}
+
+.gg-col a:hover{
+  color:white;
+  transform:translateX(5px);
+}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+
+  .gg-footer{
+    padding:40px 20px;
+  }
+
+  .gg-footer-top{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .gg-footer-top h1{
+    font-size:28px;
+  }
+
+  .gg-footer-top p{
+    font-size:15px;
+  }
+
+  .gg-footer-menu{
+    flex-direction:column;
+    gap:35px;
+  }
+
 }
 </style>
 </head>
@@ -833,54 +990,61 @@ button { cursor:pointer; margin-top:5px; }
   <p>Total: <span id="checkoutTotal"></span></p>
 
   <h3>Pilih Metode Pembayaran</h3>
-  <select id="paymentMethod" onchange="changePayment()">
-    <option value="">-- Pilih Pembayaran --</option>
-    <option value="E-Wallet">E-Wallet</option>
-    <option value="Bank">Bank</option>
-  </select>
 
+<select id="paymentMethod" onchange="changePayment()">
+  <option value="">-- Pilih Pembayaran --</option>
+  <option value="E-Wallet">E-Wallet</option>
+  <option value="Bank">Bank</option>
+</select>
+
+<!-- TARUH QRIS DI SINI -->
+<div id="qrisBox" style="display:none; text-align:center; margin-top:15px;">
+  <p>Scan QRIS untuk bayar</p>
+  <img src="/e-wallet.jpeg" style="width:200px;">
+</div>
+
+<!-- TOMBOL CHECKOUT -->
+<div class="checkout-buttons">
   <button onclick="checkoutConfirm()">Selesai</button>
   <button onclick="closeModal()">Batal</button>
+</div>
+
+</div>
 
   <!-- INPUT REKENING -->
   
  
-  <select id="bankSelect" onchange="showRekening()">
-  <option value="">-- Pilih Bank --</option>
-  <option value="BRI">BRI</option>
-  <option value="BNI">BNI</option>
-  <option value="Mandiri">Mandiri</option>
-  <option value="Permata">Permata</option>
-  <option value="BCA">BCA</option>
-  <option value="Other">Other Bank</option>
-</select>
-  <p id="rekeningTujuan" style="margin-top:10px;"></p>
- <input type="text" id="rekeningUser" placeholder="Masukkan No Rekening Kamu">
-
-<button id="payBankBtn" onclick="payBank()" style="width:100%; margin-top:10px;">
-  Bayar
-</button>
-
-<div id="bankBox" style="display:none; margin-top:10px;">
-  <label>Pilih Bank</label>
+ <!-- FORM BANK -->
+<div id="bankBox" style="display:none; margin-top:15px;">
 
   <select id="bankSelect" onchange="showRekening()">
     <option value="">-- Pilih Bank --</option>
     <option value="BRI">BRI</option>
     <option value="BNI">BNI</option>
     <option value="Mandiri">Mandiri</option>
-    <option value="Permata">Permata</option>
     <option value="BCA">BCA</option>
-    <option value="Other">Other Bank</option>
   </select>
 
   <p id="rekeningTujuan"></p>
 
-  <input type="text" id="rekeningUser" placeholder="Masukkan No Rekening Kamu">
+  <input 
+    type="text" 
+    id="rekeningUser" 
+    placeholder="Masukkan No Rekening Kamu"
+  >
 
-  <button onclick="showUpload()" style="width:100%; margin-top:10px;">
-    Saya Sudah Transfer
+  <button onclick="payBank()" style="width:100%; margin-top:10px;">
+    Bayar
   </button>
+
+  <div style="margin-top:10px;">
+    <label>Upload Bukti Transfer</label>
+    <input type="file" id="buktiTf" accept="image/*">
+
+    <img id="previewBukti"
+      style="width:100%; margin-top:10px; display:none; border-radius:10px;">
+  </div>
+
 </div>
 
 <!-- 🔥 Upload dipisah -->
@@ -905,24 +1069,78 @@ button { cursor:pointer; margin-top:5px; }
 ">
 </div>
 
-<button onclick="resetApp()" style="width:100%; margin-top:5px; background:rgb(255, 255, 255); color:rgb(21, 21, 21);">
+<button onclick="resetApp()" class="logout-btn">
   Keluar
 </button>
 
 </div>
 
-  <!-- QRIS -->
-<div id="qrisBox" style="display:none; text-align:center; margin-top:15px;">
-  <p>Scan QRIS untuk bayar</p>
-  <img src="/e-wallet.jpeg" style="width:200px;">
-
-  <button onclick="resetApp()" style="margin-top:10px; width:100%; background:rgb(241, 239, 239); color:white;">
-    Keluar
-  </button>
-</div>
-</div>
-
 <div class="bottom-blur"></div>
+
+<!-- =========================
+FOOTER
+========================= -->
+<footer class="gg-footer">
+
+  <!-- LOGO + NAMA -->
+  <div class="gg-footer-top">
+
+    <img src="/LOGO.GG.png" class="gg-footer-logo">
+
+    <div>
+      <h1>GUGUGAGA.STORE</h1>
+
+      <p>
+        Selamat datang di GuguGaga.Store TOPUP <br>
+        Murah dan Terpercaya
+      </p>
+    </div>
+
+  </div>
+
+  <!-- WHATSAPP -->
+  <div class="gg-footer-social">
+
+    <a href="https://wa.me/6281234567890" target="_blank">
+      <img src="/logo wa.png" class="gg-wa">
+    </a>
+
+  </div>
+
+  <!-- MENU BAWAH -->
+  <div class="gg-footer-menu">
+
+    <!-- KEMITRAAN -->
+    <div class="gg-col">
+      <h3>Kemitraan</h3>
+
+      <a href="#">Dashboard</a>
+      <a href="#">Deposit</a>
+      <a href="#">Daftar Harga</a>
+    </div>
+
+    <!-- PETA SITUS -->
+    <div class="gg-col">
+      <h3>Peta Situs</h3>
+
+      <a href="#">Beranda</a>
+      <a href="#">Daftar</a>
+      <a href="#">Cek Transaksi</a>
+      <a href="#">Hubungi Kami</a>
+      <a href="#">Ulasan</a>
+    </div>
+
+    <!-- LEGITALITAS -->
+    <div class="gg-col">
+      <h3>Legalitas</h3>
+
+      <a href="#">Kebijakan Pribadi</a>
+      <a href="#">Syarat & Ketentuan</a>
+    </div>
+
+  </div>
+
+</footer>
 
 <script>
   
@@ -1612,13 +1830,23 @@ function openCheckoutModal(){
 function changePayment(){
   const method = document.getElementById("paymentMethod").value;
 
-  document.getElementById("bankBox").style.display = "none";
-  document.getElementById("qrisBox").style.display = "none";
+  const qrisBox = document.getElementById("qrisBox");
+  const bankBox = document.getElementById("bankBox");
+
+  // sembunyikan semua dulu
+  qrisBox.style.display = "none";
+  bankBox.style.display = "none";
+
+  // tampilkan sesuai pilihan
+  if(method === "E-Wallet"){
+    qrisBox.style.display = "block";
+  }
 
   if(method === "Bank"){
-    document.getElementById("bankBox").style.display = "block";
+    bankBox.style.display = "block";
   }
 }
+
 function showUpload(){
   document.getElementById("uploadBox").style.display = "block";
 }
