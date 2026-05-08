@@ -486,6 +486,127 @@ button { cursor:pointer; margin-top:5px; }
   display: none;
   z-index: 20;
 }
+/* =========================
+   FOOTER
+========================= */
+
+.gg-footer{
+  margin-top:80px;
+  padding:50px 40px;
+
+  background: linear-gradient(
+    135deg,
+    #2f3d88,
+    #6678b7,
+    #95a2c9
+  );
+
+  border-top-left-radius:30px;
+  border-top-right-radius:30px;
+
+  color:white;
+}
+
+/* ATAS */
+.gg-footer-top{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:30px;
+}
+
+.gg-footer-logo{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+}
+
+.gg-footer-top h1{
+  margin:0;
+  font-size:38px;
+}
+
+.gg-footer-top p{
+  margin-top:10px;
+  font-size:18px;
+  line-height:1.6;
+  color:#f3f3f3;
+}
+
+/* WHATSAPP */
+.gg-footer-social{
+  margin-bottom:40px;
+}
+
+.gg-wa{
+  width:75px;
+  height:75px;
+  border-radius:18px;
+  transition:0.3s;
+}
+
+.gg-wa:hover{
+  transform:scale(1.08);
+}
+
+/* MENU */
+.gg-footer-menu{
+  display:flex;
+  justify-content:space-between;
+  gap:40px;
+  flex-wrap:wrap;
+}
+
+.gg-col{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.gg-col h3{
+  margin-bottom:12px;
+  font-size:24px;
+  color:white;
+}
+
+.gg-col a{
+  color:#ededed;
+  text-decoration:none;
+  font-size:18px;
+  transition:0.3s;
+}
+
+.gg-col a:hover{
+  color:white;
+  transform:translateX(5px);
+}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+
+  .gg-footer{
+    padding:40px 20px;
+  }
+
+  .gg-footer-top{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .gg-footer-top h1{
+    font-size:28px;
+  }
+
+  .gg-footer-top p{
+    font-size:15px;
+  }
+
+  .gg-footer-menu{
+    flex-direction:column;
+    gap:35px;
+  }
+
+}
 </style>
 </head>
 <body>
@@ -923,6 +1044,71 @@ button { cursor:pointer; margin-top:5px; }
 </div>
 
 <div class="bottom-blur"></div>
+
+<!-- =========================
+FOOTER
+========================= -->
+<footer class="gg-footer">
+
+  <!-- LOGO + NAMA -->
+  <div class="gg-footer-top">
+
+    <img src="/LOGO.GG.png" class="gg-footer-logo">
+
+    <div>
+      <h1>GUGUGAGA.STORE</h1>
+
+      <p>
+        Selamat datang di GuguGaga.Store TOPUP <br>
+        Murah dan Terpercaya
+      </p>
+    </div>
+
+  </div>
+
+  <!-- WHATSAPP -->
+  <div class="gg-footer-social">
+
+    <a href="https://wa.me/6281234567890" target="_blank">
+      <img src="/whatsapp.png" class="gg-wa">
+    </a>
+
+  </div>
+
+  <!-- MENU BAWAH -->
+  <div class="gg-footer-menu">
+
+    <!-- KEMITRAAN -->
+    <div class="gg-col">
+      <h3>Kemitraan</h3>
+
+      <a href="#">Dashboard</a>
+      <a href="#">Deposit</a>
+      <a href="#">Daftar Harga</a>
+    </div>
+
+    <!-- PETA SITUS -->
+    <div class="gg-col">
+      <h3>Peta Situs</h3>
+
+      <a href="#">Beranda</a>
+      <a href="#">Daftar</a>
+      <a href="#">Cek Transaksi</a>
+      <a href="#">Hubungi Kami</a>
+      <a href="#">Ulasan</a>
+    </div>
+
+    <!-- LEGITALITAS -->
+    <div class="gg-col">
+      <h3>Legalitas</h3>
+
+      <a href="#">Kebijakan Pribadi</a>
+      <a href="#">Syarat & Ketentuan</a>
+    </div>
+
+  </div>
+
+</footer>
 
 <script>
   
