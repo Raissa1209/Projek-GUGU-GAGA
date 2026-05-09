@@ -398,40 +398,64 @@ input, select {
 /* MODAL LOGIN/REGISTER & CHECKOUT */
 .modal-bg {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  background: rgba(0,0,0,0.6);
+  inset: 0;
+  background: rgba(0,0,0,0.7);
 
   display: none;
-
   justify-content: center;
-  align-items: center; /* bikin ke tengah */
+  align-items: center;
 
-  z-index: 999;
+  z-index: 9999;
 }
 
 .modal {
   background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  width: 400px;
+  max-width: 90%;
 
   padding: 25px;
-  border-radius: 15px;
-
-  width: 320px;
-  max-width: 90%;
+  border-radius: 20px;
 
   color: white;
 
-  max-height: 90vh;
+  box-sizing: border-box;
+
+  max-height: 85vh;
   overflow-y: auto;
 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+
+  position: relative;
 }
 
 button { cursor:pointer; margin-top:5px; }
+
+.modal h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.modal input,
+.modal select,
+.modal button{
+  width:100%;
+  margin-top:10px;
+  box-sizing:border-box;
+}
+
+.modal button{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+
+  background:#d5e5ff;
+  color:#394b92;
+
+  font-weight:bold;
+}
 
 .checkout-buttons{
   display: flex;
@@ -499,17 +523,6 @@ button { cursor:pointer; margin-top:5px; }
   .grid { grid-template-columns:1fr; }
 }
 
-.logout-btn{
-  width: 100%;
-  margin-top: 15px;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: white;
-  color: black;
-  cursor: pointer;
-}
-
 /* NOTIFICATION */
 #notif {
   position: fixed;
@@ -526,15 +539,22 @@ button { cursor:pointer; margin-top:5px; }
    FOOTER
 ========================= */
 
+.gg-footer-logo{
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
 .gg-footer{
   margin-top:80px;
   padding:50px 40px;
 
   background: linear-gradient(
     135deg,
-    #2f3d88,
-    #6678b7,
-    #95a2c9
+    #12315e,
+    #5568ab,
+    #213570
   );
 
   border-top-left-radius:30px;
@@ -551,37 +571,38 @@ button { cursor:pointer; margin-top:5px; }
   margin-bottom:30px;
 }
 
-.gg-footer-logo{
-  width:80px;
-  height:80px;
-  object-fit:cover;
-}
-
-.gg-footer-top h1{
-  margin:0;
-  font-size:38px;
-}
-
-.gg-footer-top p{
-  margin-top:10px;
-  font-size:18px;
-  line-height:1.6;
-  color:#f3f3f3;
-}
-
-/* WHATSAPP */
 .gg-footer-social{
+  display:flex;
+  align-items:center;
+  gap:15px;
   margin-bottom:40px;
 }
 
-.gg-wa{
+.gg-footer-social a{
   width:75px;
   height:75px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background: rgba(255,255,255,0.08);
   border-radius:18px;
+
+  overflow:hidden;
+}
+
+.gg-social-icon{
+  width:100%;
+  height:100%;
+
+  object-fit: cover; /* penting */
+  display:block;
+
   transition:0.3s;
 }
 
-.gg-wa:hover{
+.gg-social-icon:hover{
   transform:scale(1.08);
 }
 
@@ -646,6 +667,8 @@ button { cursor:pointer; margin-top:5px; }
 </style>
 </head>
 <body>
+
+  <div id="notif"></div>
 
 <div id="customAlert" style="
   display:none;
@@ -923,7 +946,13 @@ button { cursor:pointer; margin-top:5px; }
   <h2>Masukkan Data Akun</h2>
 
   <label id="idLabel">ID</label>
-  <input type="text" id="userId" placeholder="Masukkan ID">
+  <input 
+  type="text"
+  id="userId"
+  name="game_user_id"
+  placeholder="Masukkan ID"
+  autocomplete="new-password"
+>
 
   <!-- SERVER / ZONE -->
   <div id="serverInput" style="display:none;">
@@ -963,24 +992,66 @@ button { cursor:pointer; margin-top:5px; }
 <button onclick="addToCart()" id="cartBtn" style="display:none;">Masukkan Keranjang</button>
 <button onclick="openCheckoutModal()" id="checkoutBtn" style="display:none;">Checkout</button>
 
+<button onclick="resetApp()" class="logout-btn">
+  Keluar
+</button>
+
 <!-- MODAL LOGIN/REGISTER/CHECKOUT -->
-<div id="modalBg" class="modal-bg">
+<div class="modal-bg" id="modalBg">
+
   <!-- LOGIN -->
   <div class="modal" id="loginModal">
-    <h2>Login</h2>
-    <input type="text" id="loginUser" placeholder="Username">
-    <input type="password" id="loginPass" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <p>Belum punya akun? <a href="#" onclick="showRegisterModal()">Daftar</a></p>
-  </div>
-  <!-- REGISTER -->
-  <div class="modal" id="registerModal" style="display:none;">
-    <h2>Registrasi</h2>
-    <input type="text" id="regUser" placeholder="Username">
-    <input type="password" id="regPass" placeholder="Password">
-    <button onclick="register()">Daftar</button>
-    <p>Sudah punya akun? <a href="#" onclick="showLoginModal()">Login</a></p>
-  </div>
+  <h2>Login</h2>
+
+  <input 
+    type="text"
+    id="loginUser"
+    placeholder="Username"
+    autocomplete="off"
+  >
+
+  <input 
+    type="password"
+    id="loginPass"
+    placeholder="Password"
+    autocomplete="new-password"
+    value=""
+  >
+
+  <button onclick="login()">Login</button>
+
+  <p>
+    Belum punya akun?
+    <a href="#" onclick="showRegisterModal()">Daftar</a>
+  </p>
+</div>
+
+<!-- REGISTER -->
+<div class="modal" id="registerModal" style="display:none;">
+  <h2>Registrasi</h2>
+
+  <input
+    type="text"
+    id="regUser"
+    placeholder="Username"
+    autocomplete="off"
+  >
+
+  <input
+    type="password"
+    id="regPass"
+    placeholder="Password"
+    autocomplete="new-password"
+    value=""
+  >
+
+  <button onclick="register()">Daftar</button>
+
+  <p>
+    Sudah punya akun?
+    <a href="#" onclick="showLoginModal()">Login</a>
+  </p>
+</div>
 
 <!-- CHECKOUT -->
 <div class="modal" id="checkoutModal" style="display:none;">
@@ -1046,6 +1117,7 @@ button { cursor:pointer; margin-top:5px; }
   </div>
 
 </div>
+</div>
 
 <!-- 🔥 Upload dipisah -->
 <div id="uploadBox" style="display:none; margin-top:10px;">
@@ -1069,13 +1141,12 @@ button { cursor:pointer; margin-top:5px; }
 ">
 </div>
 
-<button onclick="resetApp()" class="logout-btn">
-  Keluar
-</button>
-
-</div>
 
 <div class="bottom-blur"></div>
+
+</div> <!-- penutup checkoutModal -->
+
+</div> <!-- penutup modalBg -->
 
 <!-- =========================
 FOOTER
@@ -1091,26 +1162,41 @@ FOOTER
       <h1>GUGUGAGA.STORE</h1>
 
       <p>
-        Selamat datang di GuguGaga.Store TOPUP <br>
-        Murah dan Terpercaya
+        Selamat datang di GuguGaga.Store TOP UP Game <br>
+        Murah dan Terpercaya di Indonesia yang menyediakan top up semua game online, beli diamond game murah, proses instan otomatis 24 jam, aman, legal 100%, dan harga terbaik untuk gamers Indonesia.
       </p>
     </div>
 
   </div>
 
-  <!-- WHATSAPP -->
-  <div class="gg-footer-social">
+  <!-- SOCIAL MEDIA -->
+<div class="gg-footer-social">
 
-    <a href="https://wa.me/6281234567890" target="_blank">
-      <img src="/logo wa.png" class="gg-wa">
-    </a>
+  <!-- WhatsApp -->
+  <a href="https://wa.me/6281229566695" target="_blank">
+    <img src="/wa.jpg" class="gg-social-icon">
+  </a>
 
-  </div>
+  <!-- Instagram -->
+  <a href="https://instagram.com/USERNAME_IG_KAMU" target="_blank">
+    <img src="/ig.jpg" class="gg-social-icon">
+  </a>
 
-  <!-- MENU BAWAH -->
+  <!-- TikTok -->
+  <a href="https://tiktok.com/@USERNAME_TIKTOK_KAMU" target="_blank">
+    <img src="/tt.png" class="gg-social-icon">
+  </a>
+
+  <!-- Telegram -->
+  <a href="https://t.me/USERNAME_TELEGRAM_KAMU" target="_blank">
+    <img src="/tele.jpg" class="gg-social-icon">
+  </a>
+
+</div>
+
+  <!-- MENU -->
   <div class="gg-footer-menu">
 
-    <!-- KEMITRAAN -->
     <div class="gg-col">
       <h3>Kemitraan</h3>
 
@@ -1119,24 +1205,65 @@ FOOTER
       <a href="#">Daftar Harga</a>
     </div>
 
-    <!-- PETA SITUS -->
-    <div class="gg-col">
-      <h3>Peta Situs</h3>
+   <div class="gg-col">
+  <h3>Peta Situs</h3>
 
-      <a href="#">Beranda</a>
-      <a href="#">Daftar</a>
-      <a href="#">Cek Transaksi</a>
-      <a href="#">Hubungi Kami</a>
-      <a href="#">Ulasan</a>
-    </div>
+  <a href="#" onclick="goHome()">Beranda</a>
+  <a href="#" onclick="goRegister()">Daftar</a>
+  <a href="#" onclick="goTransaction()">Cek Transaksi</a>
+  <a href="#" onclick="openReview()">Ulasan</a>
+</div>
 
-    <!-- LEGITALITAS -->
     <div class="gg-col">
       <h3>Legalitas</h3>
 
       <a href="#">Kebijakan Pribadi</a>
       <a href="#">Syarat & Ketentuan</a>
     </div>
+
+     <div class="gg-col">
+  <h3>Hubungi MinGG</h3>
+
+  <a href="#" onclick="chatMinGG()">Chat MinGG</a>
+  <a href="#" onclick="openTelegram()">Telegram</a>
+  <a href="#" onclick="sendEmail()">Email</a>
+</div>
+
+    <!-- REVIEW MODAL -->
+<div id="reviewModal" class="modal-bg">
+
+  <div class="modal">
+
+    <h2>Ulasan Pelanggan</h2>
+
+    <label>Rating</label>
+    <select id="rating">
+      <option value="⭐">1 Bintang</option>
+      <option value="⭐⭐">2 Bintang</option>
+      <option value="⭐⭐⭐">3 Bintang</option>
+      <option value="⭐⭐⭐⭐">4 Bintang</option>
+      <option value="⭐⭐⭐⭐⭐">5 Bintang</option>
+    </select>
+
+    <label>Ulasan</label>
+    <textarea id="reviewText" style="
+      width:100%;
+      height:100px;
+      border-radius:10px;
+      padding:10px;
+      margin-top:10px;
+    "></textarea>
+
+    <button onclick="saveReview()">Kirim Ulasan</button>
+    <button onclick="closeReview()">Tutup</button>
+
+    <hr>
+
+    <div id="reviewList"></div>
+
+  </div>
+
+</div>
 
   </div>
 
@@ -1774,13 +1901,31 @@ function openModal(type){ document.getElementById("modalBg").style.display="flex
   if(type==="login"){showLoginModal();}
   else{showRegisterModal();}
 }
-function showLoginModal(){ document.getElementById("loginModal").style.display="block";
+function showLoginModal(){
+
+  clearAuthForm();
+
+  document.getElementById("loginModal").style.display="block";
   document.getElementById("registerModal").style.display="none";
-  document.getElementById("checkoutModal").style.display="none"; }
-function showRegisterModal(){ document.getElementById("loginModal").style.display="none";
+  document.getElementById("checkoutModal").style.display="none";
+}
+function showRegisterModal(){
+
+  clearAuthForm();
+
+  document.getElementById("loginModal").style.display="none";
   document.getElementById("registerModal").style.display="block";
-  document.getElementById("checkoutModal").style.display="none"; }
+  document.getElementById("checkoutModal").style.display="none";
+}
 function closeModal(){ document.getElementById("modalBg").style.display="none"; }
+
+function clearAuthForm(){
+  document.getElementById("loginUser").value = "";
+  document.getElementById("loginPass").value = "";
+
+  document.getElementById("regUser").value = "";
+  document.getElementById("regPass").value = "";
+}
 
 // LOGIN / REGISTER
 function register(){
@@ -1795,15 +1940,24 @@ function register(){
 function login(){
   const user = document.getElementById("loginUser").value;
   const pass = document.getElementById("loginPass").value;
+
   const data = JSON.parse(localStorage.getItem("user"));
 
   if(data && user === data.user && pass === data.pass){
+
     alert("Login berhasil!");
-    
-    // ✅ tampilkan user di navbar
-    document.getElementById("userArea").innerHTML = `<b>${user}</b>`;
-    
+
+    // HAPUS TULISAN USERNAME
+    document.getElementById("userArea").innerHTML = `
+      <button onclick="resetApp()">Logout</button>
+    `;
+
+    // kosongkan input
+    document.getElementById("loginUser").value = "";
+    document.getElementById("loginPass").value = "";
+
     closeModal();
+
   } else {
     alert("Login gagal!");
   }
@@ -2152,6 +2306,150 @@ document.getElementById("buktiTf").addEventListener("change", function(){
     reader.readAsDataURL(file);
   }
 });
+
+// BERANDA
+function goHome(){
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+// DAFTAR
+function goRegister(){
+  openModal("register");
+}
+
+
+// CEK TRANSAKSI
+function goTransaction(){
+  document.getElementById("transaction").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+// ULASAN
+function openReview(){
+
+  document.getElementById("reviewModal").style.display = "flex";
+
+  loadReview();
+
+}
+
+function closeReview(){
+
+  document.getElementById("reviewModal").style.display = "none";
+
+}
+
+
+// SIMPAN ULASAN
+function saveReview(){
+
+  const rating = document.getElementById("rating").value;
+  const text = document.getElementById("reviewText").value;
+
+  if(!text){
+    alert("Isi ulasan dulu!");
+    return;
+  }
+
+  let reviews =
+    JSON.parse(localStorage.getItem("reviews")) || [];
+
+  reviews.push({
+    rating: rating,
+    text: text
+  });
+
+  localStorage.setItem(
+    "reviews",
+    JSON.stringify(reviews)
+  );
+
+  document.getElementById("reviewText").value = "";
+
+  loadReview();
+
+  alert("Ulasan berhasil dikirim!");
+
+}
+
+
+// LOAD ULASAN
+function loadReview(){
+
+  let reviews =
+    JSON.parse(localStorage.getItem("reviews")) || [];
+
+  const list =
+    document.getElementById("reviewList");
+
+  if(reviews.length === 0){
+
+    list.innerHTML = "Belum ada ulasan";
+
+    return;
+  }
+
+  let html = "";
+
+  reviews.forEach((r,i)=>{
+
+    html += `
+      <div style="
+        background:white;
+        color:black;
+        padding:10px;
+        border-radius:10px;
+        margin-top:10px;
+      ">
+        <b>${r.rating}</b><br>
+        ${r.text}
+      </div>
+    `;
+
+  });
+
+  list.innerHTML = html;
+
+}
+
+// CHAT WHATSAPP
+function chatMinGG(){
+
+  const nomorAdmin = "6281229566695"; // ganti nomor kamu
+
+  window.open(
+    `https://wa.me/${nomorAdmin}`,
+    "_blank"
+  );
+
+}
+
+// TELEGRAM
+function openTelegram(){
+
+  const usernameTelegram = "GUGUGAGASTORE"; // ganti username telegram kamu
+
+  window.open(
+    `https://t.me/${usernameTelegram}`,
+    "_blank"
+  );
+
+}
+
+// EMAIL
+function sendEmail(){
+
+  const emailStore = "gugugagastore@gmail.com"; // ganti email kamu
+
+  window.location.href =
+    `mailto:${emailStore}?subject=Halo GUGUGAGA STORE`;
+
+}
 </script>
 
 </body>
